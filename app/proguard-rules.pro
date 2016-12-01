@@ -15,3 +15,8 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+
+-dontwarn com.adobe.creativesdk.aviary.fragments.StoreListFragment
+-dontwarn com.adobe.creativesdk.aviary.internal.AdobeAccountUserStatus
+-dontwarn com.adobe.creativesdk.aviary.widget.PackDetailLayout

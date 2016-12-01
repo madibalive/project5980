@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/live_now_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingLeft="6dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingRight="16dp"
+        android:text="@string/live_now"
+        android:drawableLeft="@drawable/ic_live_now"
+        android:drawablePadding="4dp"
+        android:visibility="visible"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:textSize="@dimen/app_text_size_small"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/venu_flat_color"
+        />
+
+</merge>

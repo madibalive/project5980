@@ -3,6 +3,7 @@
     package="com.example.madiba.venu_alpha">
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
 
         <!--
            GOOGLE MAPS API
@@ -35,7 +38,7 @@
 
         <meta-data
             android:name="com.applozic.mobicomkit.notification.smallIcon"
-            android:resource="@drawable/venu_push_app" /> <!-- Launcher white Icon -->
+            android:resource="@mipmap/ic_launcher" /> <!-- Launcher white Icon -->
         <meta-data
             android:name="main_folder_name"
             android:value="@string/default_media_location_folder" /> <!-- Attachment Folder Name -->
