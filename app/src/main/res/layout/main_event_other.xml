@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="270dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="30dp"
     android:layout_gravity="center"
     android:layout_marginLeft="10dp"
@@ -17,44 +17,40 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
-            android:visibility="gone"
-            android:layout_margin="5dp"
-            android:layout_gravity="right"
-            android:padding="@dimen/dp_10"
-            android:textColor="@android:color/white"
-            android:background="@drawable/event_date_banner"
-            android:text="INVITE"
-            android:id="@+id/event_type"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:padding="@dimen/dp_4"
+            android:gravity="right|center_vertical"
+            android:text="Paid"
+            android:drawableRight="@drawable/ic_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+
         <TextView
+            android:padding="@dimen/dp_4"
             android:text="Sample Title here"
             android:id="@+id/event_title"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:layout_width="match_parent"
+            android:textSize="@dimen/app_text_size_small"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:paddingLeft="@dimen/dp_4"
+            android:paddingRight="@dimen/dp_4"
+            android:paddingBottom="@dimen/dp_10"
             android:text="Sample Hashtag"
             android:id="@+id/event_tag"
-            android:padding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:src="@drawable/kayaks"
+            android:src="@color/venu_flat_color"
             android:scaleType="centerCrop"
             android:id="@+id/event_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="180dp" />
 
         <RelativeLayout
             android:padding="@dimen/padding_normal"
@@ -64,12 +60,13 @@
             <TextView
                 android:layout_marginRight="6dp"
                 android:id="@+id/event_date"
-                android:background="@drawable/event_date_banner"
+                android:background="@color/mid_grey_200"
                 android:gravity="center"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large.Inverse"
                 android:text="22"
-                android:layout_width="50dp"
-                android:layout_height="55dp" />
+                android:textSize="@dimen/app_text_size_medium"
+                android:textColor="@android:color/white"
+                android:layout_width="45dp"
+                android:layout_height="50dp" />
 
             <TextView
                 android:layout_toRightOf="@id/event_date"
@@ -77,7 +74,7 @@
                 android:textColor="@android:color/white"
                 android:text="EnterTainment"
                 android:textStyle="bold"
-                android:background="@drawable/roundedgebutton"
+                android:background="@drawable/category_background_default"
                 android:textSize="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -95,14 +92,10 @@
                 android:layout_below="@id/event_location"
                 android:layout_toRightOf="@id/event_date"
                 android:text="9:20 pm"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="@dimen/app_text_size_small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/event_time" />
-
-
-
-
         </RelativeLayout>
 
 

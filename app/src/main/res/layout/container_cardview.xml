@@ -27,12 +27,15 @@
         android:foreground="?android:selectableItemBackground"
         android:importantForAccessibility="yes">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
+
         <TextView
             android:text="Entertainment"
             android:id="@+id/card_container_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_gravity="top|start|left"
             style="@style/veneTitleText"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -45,13 +48,10 @@
             android:layout_marginEnd="@dimen/padding_normal"
             android:layout_marginRight="@dimen/padding_normal"
             android:layout_marginTop="@dimen/padding_normal"
-            android:background="@drawable/rounded_bgd"
-            android:backgroundTint="@color/venu_flat_color"
             android:layout_gravity="top|end|right"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     </FrameLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cards"
         android:layout_width="match_parent"
@@ -62,6 +62,7 @@
         android:scrollbarSize="4dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:orientation="horizontal" />
+
 
 
 </android.support.v7.widget.CardView>
