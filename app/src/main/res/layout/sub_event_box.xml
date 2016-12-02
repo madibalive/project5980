@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="150dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical">
+
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:id="@+id/channel_item_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/venu_flat_color"
+       />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="@dimen/dp_4"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Short Title Where IT LONGS"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/app_text_size_small"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
+

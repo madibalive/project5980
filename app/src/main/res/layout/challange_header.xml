@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <ImageView
+        android:id="@+id/ch_view_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@color/venu_red" />
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_height="wrap_content">
+
+        <com.example.madiba.venu_alpha.ui.StateButton
+            android:minHeight="@dimen/card_corner_radius_0dp"
+            android:id="@+id/ch_view_Friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Friends"
+            android:textColor="@android:color/white"
+            app:normalBackgroundColor="@color/venu_red"
+            app:pressedBackgroundColor="@color/colorPrimaryDark"
+            app:unableBackgroundColor="@android:color/holo_red_light"/>
+
+        <com.example.madiba.venu_alpha.ui.StateButton
+            android:minHeight="@dimen/card_corner_radius_0dp"
+            android:id="@+id/ch_view_Global"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Global"
+            android:textColor="@android:color/white"
+            app:normalBackgroundColor="@color/venu_yellow"
+            app:pressedBackgroundColor="@color/colorPrimaryDark"
+            app:unableBackgroundColor="@android:color/holo_red_light"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
