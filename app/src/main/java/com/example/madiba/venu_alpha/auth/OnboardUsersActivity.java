@@ -90,7 +90,7 @@ public class OnboardUsersActivity extends AppCompatActivity implements EasyPermi
 //                startActivity(new Intent(OnboardUsersActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
-        mContactList = (RecyclerView) findViewById(R.id.contact_listview);
+        mContactList = (RecyclerView) findViewById(R.id.onboard_recycler);
         mContactList.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new contactAdapter(R.layout.user_acnt_layout_small, mDatas);
         mContactList.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));

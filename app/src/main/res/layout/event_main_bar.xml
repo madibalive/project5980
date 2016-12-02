@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/header_session"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_normal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include layout="@layout/toolbar" />
+
+
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:id="@+id/verified"
+            android:background="@color/venu_green"
+            android:gravity="right"
+            android:text="verified"
+            android:textSize="@dimen/app_text_size_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/star"
+            app:elevation="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_4"
+            android:src="@drawable/ratingbar_star_filled"
+            android:backgroundTint="@android:color/white"
+            app:fabSize="mini"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:backgroundTint="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/star"
+            android:src="@drawable/ic_live_now"
+            android:layout_margin="@dimen/dp_4"
+            app:elevation="0dp"
+            app:fabSize="mini"/>
+
+
+        <Button
+            android:layout_below="@id/verified"
+            android:padding="8dp"
+            android:text="action msg"
+            android:clickable="true"
+            android:id="@+id/action_msg"
+            style="@style/venuButton.medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textSize="@dimen/app_text_size_large"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <include
+        layout="@layout/live_now"/>
+
+    <TextView
+        android:textColor="@android:color/black"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:text=" #AISHAS (or anything really beyond 3 years is shown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/veneTitleText"
+        android:id="@+id/textView13" />
+
+
+</LinearLayout>

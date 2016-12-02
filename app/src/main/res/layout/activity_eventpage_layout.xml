@@ -52,90 +52,21 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
-        <LinearLayout
-            android:id="@+id/header_session"
+        <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/padding_normal">
-
-            <include layout="@layout/toolbar" />
-
-            <RelativeLayout
-                android:paddingRight="@dimen/dp_10"
-                android:paddingLeft="@dimen/dp_10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <TextView
-                    android:text="12ml"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:drawableLeft="@drawable/ratingbar_star_filled"
-                    android:drawablePadding="@dimen/dp_4"
-                    android:gravity="center"
-                    android:layout_marginTop="14dp"
-                    android:id="@+id/textView2" />
-
-                <TextView
-                    android:text="12ml"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_comment_default"
-                    android:drawablePadding="@dimen/dp_4"
-                    android:gravity="center"
-                    android:id="@+id/textView12"
-                    android:layout_alignBaseline="@+id/textView2"
-                    android:layout_alignBottom="@+id/textView2"
-                    android:layout_toRightOf="@+id/textView2"
-                    android:layout_toEndOf="@+id/textView2"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginStart="13dp" />
-
-
-                <TextView
-                    android:textColor="@android:color/black"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:text=" #AISHAS (or anything really beyond 3 years is shown"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/action_msg"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginTop="4dp"
-                    android:id="@+id/textView13" />
-
-                <TextView
-                    android:layout_alignTop="@id/textView2"
-                    android:padding="8dp"
-                    android:text="action msg"
-                    android:clickable="true"
-                    android:id="@+id/action_msg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
-
-
-        </LinearLayout>
+            layout="@layout/event_main_bar"/>
 
     </android.support.design.widget.AppBarLayout>
 
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/fragment_subevent_layout" />
-
+        layout="@layout/event_main_bar"/>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_schedule_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_anchor="@id/header_session"
         app:layout_anchorGravity="bottom|start|left"
         android:visibility="visible"
         android:clickable="true"
