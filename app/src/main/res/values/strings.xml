@@ -85,6 +85,9 @@
     <string name="live_available">Live</string>
     <string name="title_activity_post_map">"Location "</string>
     <string name="live_now">LIVE NOW</string>
+    <string name="welcome_select_account">Welcome, let get you ready</string>
+    <string name="setup_profile_msg">Please choose a picture :</string>
+    <string name="gossip_hint">Juicy Title</string>
 
 
 </resources>

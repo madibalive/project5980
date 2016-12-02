@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright (c) 2016 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+  in compliance with the License. You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software distributed under the License
+  is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+  or implied. See the License for the specific language governing permissions and limitations under
+  the License.
+  -->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="@dimen/dp_10"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:selectableItemBackground"
+        android:importantForAccessibility="yes">
+
+        <TextView
+            android:background="@drawable/category_background_default"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:text="TextView"
+            android:layout_height="60dp"
+            android:layout_marginRight="@dimen/dp_10"
+            android:id="@+id/textView14"
+            android:layout_width="60dp" />
+
+        <TextView
+            android:text="Entertainment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView14"
+            android:layout_toRightOf="@id/textView14"
+            style="@style/venuCategoryTag"
+            android:id="@+id/textView15" />
+
+        <TextView
+            android:text="6pm "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView14"
+            android:layout_alignLeft="@+id/textView16"
+            android:layout_alignStart="@+id/textView16"
+            android:id="@+id/textView17" />
+
+        <TextView
+            android:text="4th street rooad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView16"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_alignBaseline="@+id/textView14"
+            android:layout_alignBottom="@+id/textView14"
+            android:layout_alignLeft="@+id/textView15"
+            android:layout_alignStart="@+id/textView15" />
+
+        <com.android.liuzhuang.rcimageview.RoundCornerImageView
+            android:layout_width="@dimen/avatar_small"
+            android:layout_height="@dimen/avatar_small"
+            android:id="@+id/imageView2"
+            android:background="@color/mid_grey_200"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_alignTop="@+id/textView15"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:text="nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView17"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/textView18" />
+
+        <TextView
+            android:text="Yh i read a bit on it, my biased conclusiong is very unlikely, based on the following	The technologoical revolution required is quite far off, honestly predicting a revolution/eveolution in world of AI"
+            android:layout_width="match_parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView14"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:id="@+id/textView19" />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
+
+

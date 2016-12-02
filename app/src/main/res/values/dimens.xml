@@ -22,7 +22,7 @@
 
     <!-- (avatar_bounds - avatar_size) / 2 -->
     <dimen name="avatar_small">40dp</dimen>
-    <dimen name="avatar_large">48dp</dimen>
+    <dimen name="avatar_large">100dp</dimen>
     <dimen name="avatar_padding">4dp</dimen>
 
 
@@ -39,5 +39,6 @@
     <!-- FEED -->
     <dimen name="event_date_small">40dp</dimen>
     <dimen name="event_date_large">48dp</dimen>
+    <dimen name="compact_list_tile">168dp</dimen>
 
 </resources>

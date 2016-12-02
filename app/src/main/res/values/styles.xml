@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -101,10 +101,32 @@
         <item name="android:editTextBackground">@android:color/transparent</item>
     </style>
 
-    <style name="vene_title_text">
+    <style name="veneTitleText">
+        <item name="android:padding">@dimen/padding_normal</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
         <item name="android:textColor">@color/venu_flat_color</item>
         <item name="android:textSize">@dimen/app_text_size_large</item>
+        <item name="android:lineSpacingMultiplier">@dimen/body_1_spacing</item>
+    </style>
+
+    <style name="venuCategoryTag">
+        <item name="android:background">@drawable/category_background_default</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:textSize">@dimen/app_text_size_small</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="TextAppearance.Body2" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">14sp
+        </item> <!-- bug in AppCompat, can remove this when it's fixed -->
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="VenuBodyText">
+        <item name="android:textAppearance">@style/TextAppearance.Body2</item>
         <item name="android:lineSpacingMultiplier">@dimen/body_1_spacing</item>
     </style>
 

@@ -16,8 +16,11 @@
   -->
 
 <android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
+    style="@style/AppTheme.Toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
-/>
+    android:layout_height="?attr/actionBarSize"
+    app:popupTheme="@style/AppTheme.PopupOverlay"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#b3f1f1f1"
+    xmlns:app="http://schemas.android.com/apk/res-auto" />

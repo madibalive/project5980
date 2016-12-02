@@ -105,53 +105,44 @@
 
             </android.support.design.widget.TextInputLayout>
 
-
-            <TextView
-                android:layout_marginTop="20dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:id="@+id/continue_signup"
+            <Button
+                android:id="@+id/signup_email_sign_in_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dp_10"
-                android:text="Already a Member, go back to login " />
+                android:text="@string/action_sign_in" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/bottom_bar"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:id="@+id/continue_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_10"
+                    android:text="Already a Member, go back to login " />
+
+
+                <Button
+                    android:layout_alignParentLeft="true"
+                    android:id="@+id/signup_goto_login"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Go to Log In " />
+
+            </LinearLayout>
 
         </LinearLayout>
 
 
     </ScrollView>
 
-    <RelativeLayout
-        android:background="@color/venu_yellow"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/bottom_bar"
-        android:gravity="center_vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <Button
-            android:textColor="@android:color/white"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/signup_goto_login"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Go to Log In " />
-
-        <Button
-            android:textColor="@android:color/white"
-            android:layout_alignParentRight="true"
-            android:id="@+id/signup_email_sign_in_button"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/action_sign_in"
-            android:textStyle="bold" />
-
-
-    </RelativeLayout>
 
     </RelativeLayout>
 
