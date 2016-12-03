@@ -1,6 +1,5 @@
 package com.example.madiba.venu_alpha.models;
 
-import com.orm.SugarRecord;
 
 import java.util.Date;
 

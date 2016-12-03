@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:id="@+id/f_avatar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@color/venu_flat_color"
+        />
+
+
+    <TextView
+        android:text="Kofi"
+        android:id="@+id/f_name"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/f_avatar"
+        android:layout_toRightOf="@+id/f_avatar"
+        android:layout_toEndOf="@+id/f_avatar" />
+
+    <TextView
+        android:layout_alignBaseline="@id/f_name"
+        android:layout_toRightOf="@id/f_name"
+        android:text=" - timeagao"
+        android:id="@+id/f_time_ago"
+        android:textSize="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_toRightOf="@+id/f_avatar"
+        android:layout_below="@id/f_name"
+        android:text="#hsasjtasd The technologoical revolution required is quite far off,"
+        android:paddingRight="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="8dp"
+        android:textColor="@android:color/black"
+        android:id="@+id/f_hashtag"
+        android:textSize="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <ImageButton
+        android:visibility="visible"
+        android:layout_marginRight="@dimen/dp_4"
+        android:id="@+id/f_shared"
+        android:src="@drawable/ic_shared_default"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/f_overflow_ic"
+        android:layout_toLeftOf="@id/f_overflow_ic"
+        />
+
+    <ImageButton
+        android:layout_alignTop="@id/f_name"
+        android:id="@+id/f_overflow_ic"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_overflow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:layout_below="@id/f_hashtag"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <ImageView
+            android:id="@+id/f10_image"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@color/venu_flat_color"
+            />
+
+        <ImageButton
+            android:src="@drawable/ic_play"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center_vertical"
+            android:drawableLeft="@drawable/ic_love_default"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/f10_image"
+            android:textStyle="bold"
+            android:id="@+id/f_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:text="12" />
+        <TextView
+            android:drawablePadding="@dimen/dp_4"
+            android:drawableLeft="@drawable/ic_comment_default"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:layout_toRightOf="@id/f_like"
+            android:layout_below="@id/f10_image"
+            android:textStyle="bold"
+            android:id="@+id/f_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:text="12" />
+        <TextView
+            android:drawablePadding="@dimen/dp_4"
+            android:drawableLeft="@drawable/ic_share_default"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/black"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/f10_image"
+            android:textStyle="bold"
+            android:id="@+id/f_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/dp_22"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:text="12" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

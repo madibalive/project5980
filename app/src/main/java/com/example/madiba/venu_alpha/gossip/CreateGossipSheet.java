@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import com.example.madiba.venu_alpha.R;
 
-public class CreateGossipSheet extends BottomSheetDialogFragment {
+public class  CreateGossipSheet extends BottomSheetDialogFragment {
     TextInputEditText mTitle;
     TextInputEditText mDesc;
     Button mPost;

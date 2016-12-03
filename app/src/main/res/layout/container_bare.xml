@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/card_corner_radius_0dp"
-    app:cardElevation="0dp">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/header"
@@ -14,9 +13,6 @@
         android:foreground="?android:selectableItemBackground"
         android:importantForAccessibility="yes">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="70dp" />
 
         <TextView
             android:text="Entertainment"
@@ -42,14 +38,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cards"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/compact_list_tile"
-        android:layout_marginTop="50dp"
-        android:scrollbars="horizontal"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbarSize="4dp"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" />
 
 
-
-</android.support.v7.widget.CardView>
+</LinearLayout>

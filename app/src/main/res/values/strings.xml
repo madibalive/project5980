@@ -88,6 +88,13 @@
     <string name="welcome_select_account">Welcome, let get you ready</string>
     <string name="setup_profile_msg">Please choose a picture :</string>
     <string name="gossip_hint">Juicy Title</string>
+    <string name="permission_contact">For Better experience we need your permission to access contact</string>
+    <string name="events">Events</string>
+    <string name="nav_circle">Circle</string>
+    <string name="nav_discover">Discover</string>
+    <string name="nav_ontap">OnTap</string>
+    <string name="nav_manage">Profile</string>
+    <string name="nav_account">Account</string>
 
 
 </resources>

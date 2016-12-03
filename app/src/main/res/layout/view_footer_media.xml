@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/md_bottom_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+
+    <TextView
+        android:foregroundGravity=""
+        android:textStyle="bold"
+        android:drawablePadding="@dimen/dp_4"
+        android:drawableLeft="@drawable/ic_love_default"
+        android:padding="10dp"
+        android:id="@+id/md_cnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="12" />
+
+    <TextView
+        android:foregroundGravity=""
+        android:textStyle="bold"
+        android:drawablePadding="@dimen/dp_4"
+        android:drawableLeft="@drawable/ic_share_default"
+        android:padding="10dp"
+        android:layout_toRightOf="@id/md_cnt"
+        android:layout_alignTop="@id/md_cnt"
+        android:id="@+id/md_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="12" />
+
+
+
+    <TextView
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/md_cnt"
+        android:textStyle="bold"
+        android:drawablePadding="@dimen/dp_4"
+        android:drawableLeft="@drawable/ic_comment_default"
+        android:padding="10dp"
+        android:id="@+id/md_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="12" />
+
+
+
+
+
+
+
+</RelativeLayout>

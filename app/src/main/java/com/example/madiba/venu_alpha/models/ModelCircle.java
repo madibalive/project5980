@@ -1,6 +1,5 @@
 package com.example.madiba.venu_alpha.models;
 
-import com.orm.SugarRecord;
 
 /**
  * Created by Madiba on 11/3/2016.

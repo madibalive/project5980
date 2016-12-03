@@ -72,13 +72,12 @@ dependencies {
     compile "com.android.support:support-v4:$supportLibraryVersion"
     compile "com.android.support:multidex:$multidexVersion"
 
-
     compile 'com.parse:parse-android:1.+'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.google.android.gms:play-services:9.8.0'
     compile 'com.parse:parsefacebookutils-v4-android:1.10.3@aar'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.satyan:sugar:1.5'
+    compile 'com.jakewharton.timber:timber:4.3.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.8'
     compile 'com.github.chrisbanes:PhotoView:1.3.0'
     compile 'org.lucasr.twowayview:core:1.0.0-SNAPSHOT@aar'
@@ -91,7 +90,6 @@ dependencies {
     compile 'com.afollestad:material-camera:0.4.4'
     compile 'com.github.Commit451:ElasticDragDismissLayout:1.0.4'
     compile 'com.github.uin3566:AllAngleExpandableButton:v1.2.0'
-    compile 'com.github.zookey:universalpreferences:0.0.4'
     compile 'com.wonderkiln:blurkit:1.0.0'
     compile 'com.danikula:videocache:2.6.3'
     compile 'com.liuzhuang.opensource:rcimageview:0.0.2'
