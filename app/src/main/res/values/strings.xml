@@ -95,6 +95,7 @@
     <string name="nav_ontap">OnTap</string>
     <string name="nav_manage">Profile</string>
     <string name="nav_account">Account</string>
+    <string name="progress_connecting">Connecting to server</string>
 
 
 </resources>

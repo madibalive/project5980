@@ -15,12 +15,11 @@
   limitations under the License.
   -->
 
-<android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
-    style="@style/AppTheme.Toolbar"
+<android.support.v7.widget.Toolbar android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
+    style="@style/AppTheme.Toolbar"
+    app:elevation="0dp"
     app:popupTheme="@style/AppTheme.PopupOverlay"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#b3f1f1f1"
     xmlns:app="http://schemas.android.com/apk/res-auto" />

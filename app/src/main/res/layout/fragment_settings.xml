@@ -16,15 +16,14 @@
         >
 
         <com.android.liuzhuang.rcimageview.RoundCornerImageView
-            android:id="@+id/image"
+            android:id="@+id/account_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="@dimen/dp_10"
             android:scaleType="centerCrop"
-            android:src="@color/venu_flat_color" />
-
+/>
         <TextView
             android:id="@+id/account_name"
             android:layout_width="match_parent"

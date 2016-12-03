@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ import com.example.madiba.venu_alpha.models.GlobalConstants;
 import com.example.madiba.venu_alpha.models.PhoneContact;
 import com.example.madiba.venu_alpha.utils.DividerItemDecoration;
 import com.example.madiba.venu_alpha.utils.ImageUitls;
+import com.example.madiba.venu_alpha.utils.NetUtils;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -51,11 +53,13 @@ import bolts.Continuation;
 import bolts.Task;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import timber.log.Timber;
 
 public class OnboardUsersActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
     private static final String TAG = "UserContactList";
     private static final int RC_LOCATION_CONTACTS_PERM = 124;
-    private static final int CAPTURE_LOCAL_PHOTO_ACTIVITY_REQUEST_CODE = 300;
+    private static final int CAMERA_REQUEST_CODE = 100;
+    private static final int GALLERY_REQUEST_CODE = 300;
     private List<PhoneContact> alContacts;
     private ArrayList<String> phoneNumbers;
 
@@ -75,7 +79,8 @@ public class OnboardUsersActivity extends AppCompatActivity implements EasyPermi
         initViews();
         initAdapter();
         initListener();
-        checkPermissionV2();
+        if (NetUtils.hasInternetConnection(getApplicationContext()))
+            checkPermissionV2();
     }
 
     void initViews(){
@@ -204,26 +209,51 @@ public class OnboardUsersActivity extends AppCompatActivity implements EasyPermi
         protected void convert(BaseViewHolder Holder, ParseUser phoneContact) {
 
             Holder.setText(R.id.user_act_username, phoneContact.getUsername());
-            if (phoneContact.getString("url") != null)
-                Glide.with(mContext).load(phoneContact.getString("url")).crossFade().fitCenter().into((ImageView) Holder.getView(R.id.user_act_avatar));
+            if (phoneContact.getString("url") != null){
+                Glide.with(mContext)
+                        .load(phoneContact.getString("url"))
+                        .placeholder(R.drawable.ic_default_avatar)
+                        .error(R.drawable.placeholder_error_media)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .centerCrop()
+                        .thumbnail(0.4f)
+                        .fallback(R.drawable.ic_default_avatar)
+                        .into((RoundCornerImageView) Holder.getView(R.id.user_act_avatar));
+            }
         }
     }
 
     @AfterPermissionGranted(RC_CAMERA_PERM)
     private void changeProfilePicture(){
-        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] perms = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
-            // Already have permission, do the thing
-            Intent pickIntent = new Intent(Intent.ACTION_GET_CONTENT);
-            pickIntent.setType("image/*");
-            Intent chooserIntent = Intent.createChooser(pickIntent, "Pick Picture");
-            startActivityForResult(chooserIntent, CAPTURE_LOCAL_PHOTO_ACTIVITY_REQUEST_CODE);
+            chooser();
         } else {
             EasyPermissions.requestPermissions(this,  getString(R.string.rationale_camera),
                     RC_CAMERA_PERM, perms);
         }
     }
-
+    private void chooser(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Image Source");
+        builder.setItems(new CharSequence[]{"Gallery", "Camera"},
+                (dialog, which) -> {
+                    switch (which) {
+                        case 0:
+                            Intent galleryIntent = new Intent();
+                            galleryIntent.setType("image/*");
+                            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(Intent.createChooser(galleryIntent, "Select File"), GALLERY_REQUEST_CODE);
+                            break;
+                        case 1:
+                            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+                            break;
+                        default:
+                            break;
+                    }
+                }).show();
+    }
 
     private void updateDp(final String mUrl){
         progress = ProgressDialog.show(OnboardUsersActivity.this, null,
@@ -246,7 +276,7 @@ public class OnboardUsersActivity extends AppCompatActivity implements EasyPermi
                 return ParseUser.getCurrentUser().getParseFile("avatar").getUrl();
 
             }catch (Exception e){
-                Log.i(TAG, "call: error" + e.getMessage());
+                Timber.e("error uploading user avatar %s",e.toString());
                 return null;
             }
         }).continueWith(new Continuation<String, Void>() {
@@ -278,34 +308,38 @@ public class OnboardUsersActivity extends AppCompatActivity implements EasyPermi
         },Task.UI_THREAD_EXECUTOR);
     }
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RC_SETTINGS_SCREEN) {
-            // Do something after user returned from app settings screen, like showing a Toast.
-
-        }
-        if (requestCode == CAPTURE_LOCAL_PHOTO_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == CAMERA_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-
                 if (data.getData() != null) {
                     try {
-                        String url = ImageUitls.getPath(data.getData(), getApplicationContext());
-                        updateDp(url);
+                        updateDp(ImageUitls.getPath(data.getData(),getApplicationContext()));
                     }catch (Exception e){
-
+                        Timber.e("erorr getting path for image %s",e.getMessage());
                     }
+                } else {
 
-                } else if (resultCode == RESULT_CANCELED) {
+                }
+            }
+        }
 
+        if (requestCode == GALLERY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                if (data.getData() != null) {
+                    try {
+                        updateDp(ImageUitls.getPath(data.getData(),getApplicationContext()));
+                    }catch (Exception e){
+                        Timber.e("erorr getting path for image %s",e.getMessage());
+                    }
                 } else {
                 }
             }
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

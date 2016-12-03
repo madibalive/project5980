@@ -29,6 +29,7 @@ import com.applozic.mobicomkit.api.account.user.User;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.example.madiba.venu_alpha.R;
+import com.example.madiba.venu_alpha.utils.NetUtils;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -36,6 +37,8 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class LoginActivity extends AppCompatActivity {
     public static final List<String> mPermissions = new ArrayList<String>() {{
@@ -151,20 +154,18 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            Timber.d("error loggin - missing parameters");
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            progress = ProgressDialog.show(LoginActivity.this, null,
-                    "setting Avatar", true);
-            userLogin(email, password);
+            if (NetUtils.hasInternetConnection(getApplicationContext())){
+                progress = ProgressDialog.show(LoginActivity.this, null,
+                        getResources().getString(R.string.progress_connecting), true);
+                userLogin(email, password);
+            }
         }
-
-
     }
-
 
     private void userLogin(String email, String password) {
         ParseUser.logInInBackground(email, password, new LogInCallback() {
@@ -173,10 +174,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (e != null) {
                     // Show the error message
                     progress.dismiss();
-                    Log.i(TAG, "done: " + e.getMessage());
+                    Timber.d("error loging user : %s" ,e.getMessage());
                     Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
-
+                    Timber.i("success signing up");
                     ParseInstallation installation = ParseInstallation.getCurrentInstallation();
                     installation.put("user", ParseUser.getCurrentUser());
                     installation.put("user_id", ParseUser.getCurrentUser().getObjectId());
@@ -220,13 +221,11 @@ public class LoginActivity extends AppCompatActivity {
                             alertDialog.setTitle("");
                             alertDialog.setMessage(exception.toString());
                             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(android.R.string.ok),
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                            progress.dismiss();
-                                            startActivity(new Intent(LoginActivity.this, OnboardUsersActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-                                            finish();
-                                        }
+                                    (dialog, which) -> {
+                                        dialog.dismiss();
+                                        progress.dismiss();
+                                        startActivity(new Intent(LoginActivity.this, OnboardUsersActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                        finish();
                                     });
                             if (!isFinishing()) {
                                 alertDialog.show();
@@ -252,14 +251,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        Log.i(TAG, "isPasswordValid: " + password.length());
+        Timber.e("password too short");
         return password.length() > 4;
     }
 

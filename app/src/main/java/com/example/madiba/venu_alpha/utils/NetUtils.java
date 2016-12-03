@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
+import android.widget.Toast;
 
 import static android.telephony.TelephonyManager.NETWORK_TYPE_GSM;
 import static android.telephony.TelephonyManager.NETWORK_TYPE_IWLAN;
@@ -140,6 +141,9 @@ public class NetUtils {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
+        if (!isConnected){
+            Toast.makeText(context,"Network Unavailable",Toast.LENGTH_LONG).show();
+        }
 
         return isConnected;
     }

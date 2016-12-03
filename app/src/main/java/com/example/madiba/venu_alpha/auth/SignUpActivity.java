@@ -30,6 +30,7 @@ import com.applozic.mobicomkit.api.account.user.User;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
 import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.example.madiba.venu_alpha.R;
+import com.example.madiba.venu_alpha.utils.NetUtils;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
@@ -38,6 +39,8 @@ import com.parse.SignUpCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -182,11 +185,12 @@ public class SignUpActivity extends AppCompatActivity {
             // form field with an error.
 //            focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            progress = ProgressDialog.show(SignUpActivity.this, null,
-                    "setting Avatar", true);
-            userSignUp(username, email, password, phone);
+
+            if (NetUtils.hasInternetConnection(getApplicationContext())){
+                progress = ProgressDialog.show(SignUpActivity.this, null,
+                        getResources().getString(R.string.progress_connecting), true);
+                userSignUp(username, email, password, phone);
+            }
         }
 
 
@@ -195,10 +199,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void userSignUp(String username, String email, String password, String phone) {
 
-        Log.i(TAG, "UserLoginTask: " + username + " : " + email + " :" + password + " : " + phone + " :");
-
         final ParseUser user = new ParseUser();
-
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
@@ -210,11 +211,11 @@ public class SignUpActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e != null) {
                     progress.dismiss();
-                    Log.i(TAG, "done: " + e.getMessage());
                     // Show the error message
+                    Timber.d("error signing user : %s" ,e.getMessage());
                     Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 } else {
-                    Log.i(TAG, "done: " + user.getObjectId());
+                    Timber.i("success signing up");
                     ParseInstallation installation = ParseInstallation.getCurrentInstallation();
                     installation.put("user", ParseUser.getCurrentUser());
                     installation.put("user_id", ParseUser.getCurrentUser().getObjectId());
