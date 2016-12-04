@@ -1,73 +1,48 @@
 package com.example.madiba.venu_alpha.eventmanager;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources.Theme;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.madiba.venu_alpha.R;
 
-public class EventManagerActivity extends AppCompatActivity implements   UserEventsFragment.OnFragmentInteractionListener,
-        InvitesFragment.OnFragmentInteractionListener{
+
+public class EventManagerActivity extends AppCompatActivity {
+
+
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+
+
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_manager_v3);
+        setContentView(R.layout.activity_event_manager);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        // Setup spinner
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setAdapter(new MyAdapter(
-                toolbar.getContext(),
-                new String[]{
-                        "Invites & Interests",
-                        "My Event"
-                }));
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // When the given dropdown item is selected, show its contents in the
-                // container view.
-                if (position == 0){
-                    InvitesFragment frg = InvitesFragment.newInstance();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, frg)
-                            .commit();
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
-                }
-                else if (position == 1){
-                    UserEventsFragment frg = UserEventsFragment.newInstance();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, frg)
-                            .commit();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
 
 
     }
@@ -76,62 +51,51 @@ public class EventManagerActivity extends AppCompatActivity implements   UserEve
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_event_manger, menu);
-        return true;    }
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.action_new_event) {
-            startActivity(new Intent(EventManagerV3Activity.this, EventPostV4Activity.class));
+        int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
 
-    private static class MyAdapter extends ArrayAdapter<String> implements ThemedSpinnerAdapter {
-        private final ThemedSpinnerAdapter.Helper mDropDownHelper;
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public MyAdapter(Context context, String[] objects) {
-            super(context, android.R.layout.simple_list_item_1, objects);
-            mDropDownHelper = new ThemedSpinnerAdapter.Helper(context);
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
 
         @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            View view;
+        public Fragment getItem(int position) {
 
-            if (convertView == null) {
-                // Inflate the drop down using the helper's LayoutInflater
-                LayoutInflater inflater = mDropDownHelper.getDropDownViewInflater();
-                view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-            } else {
-                view = convertView;
+            return UserEventsFragment.newInstance();
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Invites";
+                case 1:
+                    return "My Events";
+
             }
-
-            TextView textView = (TextView) view.findViewById(android.R.id.text1);
-            textView.setText(getItem(position));
-
-            return view;
-        }
-
-        @Override
-        public Theme getDropDownViewTheme() {
-            return mDropDownHelper.getDropDownViewTheme();
-        }
-
-        @Override
-        public void setDropDownViewTheme(Theme theme) {
-            mDropDownHelper.setDropDownViewTheme(theme);
+            return null;
         }
     }
-
-
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
 }

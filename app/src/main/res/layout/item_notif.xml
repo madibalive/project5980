@@ -20,7 +20,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginEnd="@dimen/padding_normal"
         android:layout_marginStart="@dimen/padding_normal"
-        app:srcCompat="@drawable/ic_default_avatar" />
+        android:src="@color/venu_flat_color" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -47,11 +47,12 @@
     </LinearLayout>
 
     <ImageView
+        android:layout_marginRight="@dimen/dp_10"
         android:id="@+id/notif_i_rightimage"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        app:srcCompat="@color/light_grey_300" />
+        app:srcCompat="@color/venu_flat_color" />
 
 
 </RelativeLayout>

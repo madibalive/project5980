@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dp_10"
     android:padding="@dimen/padding_normal"
-    android:background="@color/venu_flat_color"
+    android:background="@color/venu_blue"
     android:orientation="vertical">
 
 

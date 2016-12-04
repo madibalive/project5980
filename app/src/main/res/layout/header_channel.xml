@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/card_corner_radius_0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout android:id="@+id/activity_main"
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             android:layout_height="150dp"
             android:layout_marginBottom="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_ticket_defualt" />
+            android:src="@color/venu_flat_color" />
 
 
         <TextView
@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/image"
             android:text="4syte Tve"
-            style="@style/veneTitleText"
+            style="@style/veneProfileName"
+
             />
         <TextView
             android:layout_below="@id/user_prof_name"
@@ -36,6 +37,7 @@
             android:padding="@dimen/padding_normal"
             android:text="Yh i read a bit on it, my biased conclusiong is very unlikely, based on the followingThe technologoical revolution"
             android:textSize="@dimen/app_text_size_small"
+            android:layout_marginRight="@dimen/dp_22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -72,6 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:textSize="@dimen/app_text_size_small"
                         android:gravity="center"
                         android:text="Peeps"
                         android:textColor="#66424242" />
@@ -106,6 +109,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="center"
                         android:text="Events"
+                        android:textSize="@dimen/app_text_size_small"
                         android:textColor="#66424242" />
                 </LinearLayout>
 
@@ -137,7 +141,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:gravity="center"
-                        android:text="Followers"
+                        android:text="Fans"
+                        android:textSize="@dimen/app_text_size_small"
                         android:textColor="#66424242" />
                 </LinearLayout>
 
@@ -146,22 +151,29 @@
 
         </LinearLayout>
 
-
-
-        <Button
-            android:drawableRight="@drawable/ic_submit_feedback"
-            android:drawableTint="@android:color/white"
+        <com.example.madiba.venu_alpha.ui.StateButton
+            style="@style/venuButton.small"
             android:id="@+id/user_prof_follow_btn"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="start|center_vertical"
+            android:text="Follow"
+            android:padding="@dimen/dp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Follow"
-            style="@style/venuButton.small"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/venu_red"
+            app:normalBackgroundColor="@android:color/white"
+            app:normalStrokeColor="@color/venu_flat_color"
+            app:normalStrokeWidth="2dp"
+            android:textSize="@dimen/app_text_size_small"
+            app:normalTextColor="@color/mid_grey_200"
+            app:pressedBackgroundColor="@color/venu_flat_color"
+            app:pressedTextColor="@android:color/white"
+            app:animationDuration="200"
             android:layout_alignBaseline="@+id/user_prof_name"
             android:layout_alignBottom="@+id/user_prof_name"
             android:layout_toRightOf="@+id/user_prof_name"
             android:layout_toEndOf="@+id/user_prof_name" />
+
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -43,7 +43,6 @@
                     android:textColor="@android:color/white"
                     android:drawableTop="@drawable/ic_play"
                     android:drawablePadding="@dimen/spacing_normal"
-
                     android:paddingTop="28dp"
                     style="?borderlessButtonStyle" />
                 <!-- paddingTop offsets the text+drawablePadding to center the image -->

@@ -10,7 +10,7 @@
         android:layout_width="@dimen/avatar_small"
         android:layout_height="@dimen/avatar_small"
         android:layout_marginRight="8dp"
-        android:background="@color/colorPrimary" />
+        android:background="@color/venu_flat_color" />
 
     <TextView
         android:id="@+id/ev_title"
@@ -28,6 +28,7 @@
         android:layout_below="@id/ev_title"
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@id/ev_image"
+        android:textColor="@color/venu_flat_color"
         android:text="#event suprised"
         android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 

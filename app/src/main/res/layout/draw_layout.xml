@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:padding="@dimen/dp_10"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <com.example.madiba.venu_alpha.ui.StateButton
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_bgd"
+        android:clickable="true"
+        android:id="@+id/paid"
+        android:text="Paid"
+        app:normalBackgroundColor="@android:color/white"
+        app:normalStrokeColor="@color/venu_flat_color"
+        app:normalStrokeWidth="2dp"
+        app:normalTextColor="@color/mid_grey_200"
+        app:pressedBackgroundColor="@color/venu_flat_color"
+        app:pressedTextColor="@android:color/white"
+        app:animationDuration="200"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+
+    <com.example.madiba.venu_alpha.ui.StateButton
+        android:padding="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_4"
+        android:gravity="start|center_vertical"
+        android:text="Invite Friends"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:normalBackgroundColor="@android:color/white"
+        app:normalStrokeColor="@color/venu_flat_color"
+        app:normalStrokeWidth="2dp"
+        app:normalTextColor="@color/mid_grey_200"
+        app:pressedBackgroundColor="@color/venu_flat_color"
+        app:pressedTextColor="@android:color/white"
+        app:animationDuration="200"/>
+
+</LinearLayout>

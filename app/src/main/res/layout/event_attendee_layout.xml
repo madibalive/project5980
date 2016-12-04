@@ -8,6 +8,7 @@
     app:cardCornerRadius="0dp"
     app:contentPadding="@dimen/padding_normal">
     <FrameLayout
+        android:padding="@dimen/dp_10"
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,6 +16,7 @@
         android:importantForAccessibility="yes">
 
         <TextView
+            android:paddingLeft="@dimen/dp_10"
             android:text="Attendee"
             android:id="@+id/attendee"
             android:layout_width="wrap_content"

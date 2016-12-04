@@ -27,12 +27,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venu_alpha.R;
 import com.example.madiba.venu_alpha.models.GlobalConstants;
 import com.example.madiba.venu_alpha.utils.NetUtils;
-import com.parse.DeleteCallback;
-import com.parse.FindCallback;
-import com.parse.ParseException;
+
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,9 +84,9 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
         mAdapter = new UserEventsAdapter(R.layout.my_event_layout,mDatas);
         mAdapter.setOnRecyclerViewItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
-                case R.id.event_type:
-                    showPopup(view);
-                    break;
+//                case R.id.event_type:
+//                    showPopup(view);
+//                    break;
             }
         });
 
@@ -102,7 +102,6 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
         popupMenu.setOnMenuItemClickListener(item -> false);
         popupMenu.show();
     }
-
 
     @Override
     public void onRefresh() {
@@ -154,7 +153,7 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
 
     private void gotoEvent(int pos) {
         ParseObject a= mAdapter.getItem(pos);
-        Intent event = new Intent(getActivity(), EventPageV2Activity.class);
+        Intent event = new Intent();
         event.putExtra(GlobalConstants.EVP_BANNER, a.getParseFile("image").getUrl());
         event.putExtra(GlobalConstants.EVP_TITLE,a.getString("title"));
         event.putExtra(GlobalConstants.EVP_Hashtag, a.getString("title"));
@@ -209,22 +208,17 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
         protected void convert(BaseViewHolder holder, final ParseObject data) {
             holder.setText(R.id.event_title, data.getString("title"));
             holder.setText(R.id.event_tag,"#"+ data.getString("tag"));
-
-
             String day = (String) DateFormat.format("dd", data.getDate("date"));
             String stringMonth = (String) DateFormat.format("MMM", data.getDate("date"));
             String timeOfevent = (String) DateFormat.format("HH:mm", data.getDate("time"));
-
-
             holder.setText(R.id.event_time,timeOfevent)
                     .setText(R.id.event_date,day + " \n "+stringMonth);
 
-            holder.setVisible(R.id.event_type,true)
-                    .setOnClickListener(R.id.event_title, new OnItemChildClickListener());
+//            holder.setVisible(R.id.event_type,true)
+//                    .setOnClickListener(R.id.event_title, new OnItemChildClickListener());
 
             Glide.with(mContext).load(data.getParseFile("image").getUrl())
                     .thumbnail(0.1f)
-                    .error(R.drawable.kayaks)
                     .crossFade()
                     .centerCrop()
                     .into((ImageView) holder.getView(R.id.event_image));
@@ -240,18 +234,20 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
 
     }
 
+
     @Override
-    public void onStop() {
-        if (notifQuery !=null)
-            notifQuery.cancel();
-        super.onStop();
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (NetUtils.hasInternetConnection(getActivity().getApplicationContext()))
-            initialLoad();
+    public void onStop() {
+
+        EventBus.getDefault().unregister(this);
+
+        super.onStop();
 
     }
 }

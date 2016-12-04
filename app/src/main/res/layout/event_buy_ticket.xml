@@ -18,16 +18,17 @@
         >
 
         <TextView
+            android:padding="@dimen/dp_4"
             android:id="@+id/venu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Buy with venu"
-            android:textSize="@dimen/app_text_size_small"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/venu_flat_dark" />
 
         <TextView
+            android:padding="@dimen/dp_4"
             android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
-            android:id="@+id/venu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/app_text_size_small"
@@ -38,7 +39,6 @@
             android:textSize="@dimen/app_text_size_medium"
             android:textColor="@color/black"
             android:text="Starting price: GH 50"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

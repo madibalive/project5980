@@ -8,48 +8,40 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
         <TextView
-            android:layout_marginBottom="10dp"
-            android:id="@+id/main_title"
-            android:text="tion in world of AI (or anything really beyond 3 years is "
-            android:layout_width="match_parent"
-            style="@style/venuButton.medium"
-            android:layout_height="wrap_content" />
-
-
-        <TextView
-            android:layout_below="@id/main_title"
+            android:layout_alignParentLeft="true"
+            android:textSize="@dimen/app_text_size_large"
+            android:textStyle="bold"
+            android:gravity="center"
             android:layout_marginRight="6dp"
             android:id="@+id/main_event_date"
-            android:background="@drawable/rounded_bgd"
-            android:layout_marginBottom="15dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:background="@color/light_grey_200"
             android:text="22"
-            android:layout_width="65dp"
-            android:layout_height="65dp" />
+            android:layout_width="45dp"
+            android:layout_height="70dp" />
+
+        <TextView
+            android:maxLines="2"
+            android:layout_toRightOf="@id/main_event_date"
+            android:id="@+id/main_title"
+            android:textColor="@color/black"
+            android:text="tion in world of AI (or anything really sdsbeyond #sgatata "
+            android:layout_marginRight="20dp"
+            android:textSize="@dimen/app_text_size_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_below="@id/main_title"
-            android:layout_toRightOf="@id/main_event_date"
-            android:id="@+id/main_event_category"
-            android:text="EnterTainment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/venuCategoryTag"
-            android:background="@drawable/category_background_default" />
-
-        <TextView
-            android:layout_below="@id/main_event_category"
             android:layout_marginTop="@dimen/dp_4"
             android:id="@+id/main_event_location"
             android:layout_toRightOf="@id/main_event_date"
             android:text="Location East Adenta"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="@dimen/app_text_size_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -58,71 +50,72 @@
             android:layout_toRightOf="@id/main_event_date"
             android:text="9:20 pm"
             android:layout_marginTop="@dimen/dp_4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/app_text_size_small"
             android:id="@+id/main_event_time" />
 
-        <TextView
-            android:textSize="16sp"
-            android:drawablePadding="@dimen/dp_4"
-            android:gravity="center"
-            android:text="48 Going and registered  "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/main_event_date"
-            android:id="@+id/going" />
 
         <TextView
-            android:paddingLeft="@dimen/dp_10"
-            android:textSize="15sp"
-            android:drawableTop="@drawable/ic_comment_default"
-            android:drawablePadding="@dimen/dp_4"
-            android:gravity="center"
+            android:drawableTint="@color/venu_flat_color"
+            android:drawableTop="@drawable/ic_tag"
             android:layout_alignParentRight="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:text="489k "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/going"
-            android:id="@+id/comment" />
-
-
-        <TextView
-            android:textSize="15sp"
-            android:drawableTop="@drawable/ratingbar_star_unfilled"
-            android:drawablePadding="@dimen/dp_4"
+            android:textSize="@dimen/app_text_size_medium"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            android:text="48m "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/comment"
-            android:layout_alignTop="@id/going"
-            android:id="@+id/interest" />
+            android:layout_marginLeft="6dp"
+            android:id="@+id/main_event_tag"
+            android:text="free"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content" />
 
-        <View
-            android:layout_marginTop="@dimen/dp_4"
-            android:layout_marginBottom="@dimen/dp_4"
-            android:layout_below="@id/comment"
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/venu_flat_color" />
+
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_linechart"
+            android:layout_below="@id/main_event_date"
+            android:layout_alignParentLeft="true"
+            android:textSize="@dimen/app_text_size_large"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginRight="6dp"
+            android:id="@+id/main_event_trending"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp" />
 
 
         <TextView
-            android:drawableLeft="@drawable/ic_share_default"
-            android:drawablePadding="@dimen/dp_4"
-            android:gravity="center_vertical"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_alignTop="@id/main_event_trending"
+            android:layout_toRightOf="@id/main_event_trending"
+            android:id="@+id/main_share"
+            android:text="824k favortes "
+            style="@style/veneTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_alignTop="@id/main_event_trending"
+            android:layout_toRightOf="@id/main_share"
+            android:text="12m comments "
+            style="@style/veneTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:textSize="@dimen/app_text_size_small"
-            android:text="12k share on Venu "
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/line"
-            android:id="@+id/shares" />
+            android:gravity="center"
+            android:text="Action"
+            android:layout_below="@id/main_event_trending"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/ic_overflow"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
     </RelativeLayout>
+
+
+
 
 </android.support.v7.widget.CardView>

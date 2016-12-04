@@ -51,6 +51,8 @@ public class LoadService extends IntentService {
     private static final String ACTION_LOAD_CHALLANGE = "com.example.madiba.venu_v2.services.action.LOAD_CHALLANGE";
     private static final String ACTION_LOAD_CHANNEL = "com.example.madiba.venu_v2.services.action.LOAD_CHANNEL";
     private static final String ACTION_LOAD_CIRCLE = "com.example.madiba.venu_v2.services.action.LOAD_CIRCLE";
+    private static final String ACTION_LOAD_MYEVENT = "com.example.madiba.venu_v2.services.action.LOAD_MYEVENT";
+    private static final String ACTION_LOAD_INVITES = "com.example.madiba.venu_v2.services.action.LOAD_INVITES";
 
     private static final String EXTRA_PARAM1 = "com.example.madiba.venu_v2.services.extra.PARAM1";
     private static final String EXTRA_PARAM2 = "com.example.madiba.venu_v2.services.extra.PARAM2";
@@ -68,6 +70,17 @@ public class LoadService extends IntentService {
     public static void startActionLoadCircle(Context context) {
         Intent intent = new Intent(context, LoadService.class);
         intent.setAction(ACTION_LOAD_CIRCLE);
+        context.startService(intent);
+    }
+
+    public static void startActionLoadMyEvents(Context context) {
+        Intent intent = new Intent(context, LoadService.class);
+        intent.setAction(ACTION_LOAD_MYEVENT);
+        context.startService(intent);
+    }
+    public static void startActionLoadInvites(Context context) {
+        Intent intent = new Intent(context, LoadService.class);
+        intent.setAction(ACTION_LOAD_INVITES);
         context.startService(intent);
     }
 
@@ -150,6 +163,58 @@ public class LoadService extends IntentService {
             EventBus.getDefault().post(new ActionCheck(false,true));
             e.printStackTrace();
         }
+    }
+
+    private void handleActionLoadMyEvents(Boolean local){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Peep");
+        query.whereEqualTo("from",ParseUser.createWithoutData(ParseUser.class,id));
+        query.include("from");
+        query.orderByAscending("createdAt");
+
+        if (local)
+            query.fromLocalDatastore();
+        try {
+
+            List<ParseObject> b = query.find();
+            if (b.size()>0) {
+                EventBus.getDefault().post(new ActionLoadMedia(b, false));
+                ParseObject.unpinAllInBackground("user_events", e1 -> {
+                    ParseObject.pinAllInBackground("user_events", b);
+                });
+            }else
+                EventBus.getDefault().post(new ActionLoadMedia(b,false));
+
+        } catch (ParseException e) {
+            EventBus.getDefault().post(new ActionLoadMedia(null,true,0,0));
+
+        }
+
+    }
+
+    private void handleActionLoadInvites(Boolean local){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Peep");
+        query.whereEqualTo("from",ParseUser.createWithoutData(ParseUser.class,id));
+        query.include("from");
+        query.orderByAscending("createdAt");
+
+        if (local)
+            query.fromLocalDatastore();
+        try {
+
+            List<ParseObject> b = query.find();
+            if (b.size()>0) {
+                EventBus.getDefault().post(new ActionLoadMedia(b, false));
+                ParseObject.unpinAllInBackground("user_events", e1 -> {
+                    ParseObject.pinAllInBackground("user_events", b);
+                });
+            }else
+                EventBus.getDefault().post(new ActionLoadMedia(b,false));
+
+        } catch (ParseException e) {
+            EventBus.getDefault().post(new ActionLoadMedia(null,true,0,0));
+
+        }
+
     }
 
     private void handleActionLoadMedia(String id,int limit,int skip){

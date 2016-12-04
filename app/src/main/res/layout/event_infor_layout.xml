@@ -96,7 +96,7 @@
             android:layout_below="@+id/textView14"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/dp_22"
             android:id="@+id/textView19" />
 
     </RelativeLayout>

@@ -41,13 +41,13 @@
     <TextView
         android:layout_toRightOf="@+id/f_avatar"
         android:layout_below="@id/f_name"
-        android:text="#hsasjtasd The technologoical revolution required is quite far off,"
+        android:text="#hsasjtasd red is quite far"
         android:paddingRight="10dp"
         android:paddingTop="2dp"
         android:paddingBottom="8dp"
         android:textColor="@android:color/black"
         android:id="@+id/f_hashtag"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -141,8 +141,8 @@
         <com.example.madiba.venu_alpha.ui.StateButton
             android:layout_alignParentBottom="true"
             android:minHeight="0dp"
-            android:text="Buy Tickets"
-            android:padding="@dimen/dp_14"
+            android:text="Buy Tickets : gh 45"
+            android:padding="@dimen/dp_10"
             android:layout_margin="@dimen/dp_10"
             app:normalBackgroundColor="@color/venu_flat_color"
             app:normalTextColor="@android:color/white"
@@ -150,8 +150,6 @@
             app:round="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
-
 
     </RelativeLayout>
 
