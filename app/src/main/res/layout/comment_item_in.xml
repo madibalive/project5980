@@ -8,8 +8,9 @@
     android:gravity="center_vertical">
 
 
-    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+    <com.android.liuzhuang.rcimageview.CircleImageView
         android:id="@+id/comment_avatar"
+        android:src="@color/venu_flat_color"
         android:layout_width="@dimen/avatar_small"
         android:layout_height="@dimen/avatar_small" />
 

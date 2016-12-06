@@ -43,6 +43,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LoadService extends IntentService {
 
+
     private static final String ACTION_FOO = "com.example.madiba.venu_v2.services.action.FOO";
     private static final String TAG = "LOCALSERVICE";
     private static final String ACTION_BAZ = "com.example.madiba.venu_v2.services.action.BAZ";
@@ -53,20 +54,20 @@ public class LoadService extends IntentService {
     private static final String ACTION_LOAD_CIRCLE = "com.example.madiba.venu_v2.services.action.LOAD_CIRCLE";
     private static final String ACTION_LOAD_MYEVENT = "com.example.madiba.venu_v2.services.action.LOAD_MYEVENT";
     private static final String ACTION_LOAD_INVITES = "com.example.madiba.venu_v2.services.action.LOAD_INVITES";
-
     private static final String EXTRA_PARAM1 = "com.example.madiba.venu_v2.services.extra.PARAM1";
     private static final String EXTRA_PARAM2 = "com.example.madiba.venu_v2.services.extra.PARAM2";
+
 
     public LoadService() {
         super("LoadService");
     }
-
 
     public static void startActionFoo(Context context) {
         Intent intent = new Intent(context, LoadService.class);
         intent.setAction(ACTION_UPDATE_CHAT);
         context.startService(intent);
     }
+
     public static void startActionLoadCircle(Context context) {
         Intent intent = new Intent(context, LoadService.class);
         intent.setAction(ACTION_LOAD_CIRCLE);

@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     >
     <VideoView
         android:layout_centerVertical="true"
@@ -22,7 +23,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:id="@+id/seekArcComplete"
+        android:id="@+id/videoProgress"
         />
 
     <include

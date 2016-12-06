@@ -31,7 +31,6 @@ android {
         dexOptions {
         }
 
-
     }
 
     buildTypes {
@@ -72,6 +71,7 @@ dependencies {
     compile "com.android.support:support-v4:$supportLibraryVersion"
     compile "com.android.support:multidex:$multidexVersion"
 
+    compile 'me.tatarka.rxloader:rxloader:1.1.0'
     compile 'com.parse:parse-android:1.+'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.google.android.gms:play-services:9.8.0'
@@ -92,6 +92,10 @@ dependencies {
     compile 'com.github.uin3566:AllAngleExpandableButton:v1.2.0'
     compile 'com.wonderkiln:blurkit:1.0.0'
     compile 'com.danikula:videocache:2.6.3'
+    compile 'rongi.async-task:async-task:1.0.1'
     compile 'com.liuzhuang.opensource:rcimageview:0.0.2'
     testCompile 'junit:junit:4.12'
 }
+
+apply plugin: 'com.google.gms.google-services'
+

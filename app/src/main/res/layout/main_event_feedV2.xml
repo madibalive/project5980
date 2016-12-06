@@ -158,7 +158,7 @@
         android:id="@+id/f_more"
         android:layout_below="@id/f_container"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/ic_overflow_horizontal"
+        app:srcCompat="@drawable/ic_bar_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

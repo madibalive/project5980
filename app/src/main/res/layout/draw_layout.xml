@@ -1,42 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:padding="@dimen/dp_10"
+    android:background="@color/white"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
 
-    <com.example.madiba.venu_alpha.ui.StateButton
-        android:layout_gravity="center"
-        android:background="@drawable/rounded_bgd"
-        android:clickable="true"
-        android:id="@+id/paid"
-        android:text="Paid"
-        app:normalBackgroundColor="@android:color/white"
-        app:normalStrokeColor="@color/venu_flat_color"
-        app:normalStrokeWidth="2dp"
-        app:normalTextColor="@color/mid_grey_200"
-        app:pressedBackgroundColor="@color/venu_flat_color"
-        app:pressedTextColor="@android:color/white"
-        app:animationDuration="200"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
-
-    <com.example.madiba.venu_alpha.ui.StateButton
-        android:padding="@dimen/dp_10"
-        android:drawablePadding="@dimen/dp_4"
-        android:gravity="start|center_vertical"
-        android:text="Invite Friends"
+    <TextView
+        android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
+        style="@style/veneProfileName"
+        android:textAllCaps="true"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:normalBackgroundColor="@android:color/white"
-        app:normalStrokeColor="@color/venu_flat_color"
-        app:normalStrokeWidth="2dp"
-        app:normalTextColor="@color/mid_grey_200"
-        app:pressedBackgroundColor="@color/venu_flat_color"
-        app:pressedTextColor="@android:color/white"
-        app:animationDuration="200"/>
+        android:layout_height="wrap_content" />
+
+
+    <LinearLayout
+        android:padding="@dimen/padding_normal"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_bar_code_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_bar_code_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_bar_code_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_bar_code_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_bar_code_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_bar_code_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_bar_code_large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:drawablePadding="@dimen/dp_4"
+            android:drawableLeft="@drawable/ic_love_default"
+            style="@style/veneProfileName"
+            android:text="120k"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:drawablePadding="@dimen/dp_4"
+            android:drawableLeft="@drawable/ic_comment_default"
+            style="@style/veneProfileName"
+            android:text="40k"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:layout_margin="@dimen/padding_normal"
+        android:background="@drawable/applozic_map_offline_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_margin="@dimen/padding_normal"
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom"
+            android:src="@drawable/mobicom_ic_action_send"
+            android:layout_height="wrap_content" />
+
+    </FrameLayout>
+
+
+
+
+    <TextView
+        android:drawablePadding="@dimen/padding_normal"
+        android:gravity="center_vertical"
+        android:text="Event Description"
+        android:drawableLeft="@drawable/ic_help"
+        android:paddingLeft="@dimen/padding_normal"
+        android:textSize="@dimen/app_text_size_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:padding="@dimen/padding_normal"
+        android:text="DFA stands for deterministic finite automaton. Basically, it is a directed graph where each
+node has edges coming out of it labeled with the letters from a fixed finite alphabet Σ. One
+node is designated as the start node, and a set of nodes are designated as final nodes"
+        style="@style/veneProfileName"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

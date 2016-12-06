@@ -214,14 +214,19 @@
 
             </FrameLayout>
 
-            <Button
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            <com.example.madiba.venu_alpha.ui.StateButton
+                android:id="@+id/post_request_btn"
                 android:padding="@dimen/dp_10"
-                style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:gravity="start|left|center_vertical"
-                android:text="Event Location"
+                android:text="Add Location"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="wrap_content"
+                app:normalBackgroundColor="@android:color/white"
+                app:normalTextColor="@color/mid_grey_200"
+                app:pressedBackgroundColor="@color/venu_flat_color"
+                app:pressedTextColor="@android:color/white"
+                app:animationDuration="200"/>
 
             <LinearLayout
 
@@ -309,6 +314,8 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:strokeDashGap="2dp"
+                app:strokeDashWidth="5dp"
                 app:normalBackgroundColor="@android:color/white"
                 app:normalStrokeColor="@color/venu_flat_color"
                 app:normalStrokeWidth="2dp"
@@ -357,6 +364,8 @@
                 android:text="Invite Friends"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:strokeDashGap="2dp"
+                app:strokeDashWidth="5dp"
                 app:normalBackgroundColor="@android:color/white"
                 app:normalStrokeColor="@color/venu_flat_color"
                 app:normalStrokeWidth="2dp"

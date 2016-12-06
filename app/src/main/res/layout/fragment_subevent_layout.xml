@@ -28,11 +28,7 @@
 
             layout="@layout/event_buy_ticket" />
 
-        <include
-            android:layout_below="@+id/info_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/event_attendee_layout" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

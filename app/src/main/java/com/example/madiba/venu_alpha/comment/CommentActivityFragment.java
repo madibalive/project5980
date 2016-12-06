@@ -100,15 +100,14 @@ public class CommentActivityFragment extends BottomSheetDialogFragment implement
         mMesssage = (EditText) view.findViewById(R.id.comment_dailog_message);
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        getDialog().setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                BottomSheetDialog d = (BottomSheetDialog) dialog;
-                View bottomSheetInternal = d.findViewById(android.support.design.R.id.design_bottom_sheet);
-                assert bottomSheetInternal != null;
-                BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
-            }
+        getDialog().setOnShowListener(dialog -> {
+            BottomSheetDialog d = (BottomSheetDialog) dialog;
+            View bottomSheetInternal = d.findViewById(android.support.design.R.id.design_bottom_sheet);
+            assert bottomSheetInternal != null;
+            BottomSheetBehavior.from(bottomSheetInternal).setState(BottomSheetBehavior.STATE_EXPANDED);
         });
+
+
         return view;
     }
 
@@ -119,12 +118,7 @@ public class CommentActivityFragment extends BottomSheetDialogFragment implement
         mAdapter = new CommentAdapter(mDatas);
 
 
-        mSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptComment();
-            }
-        });
+        mSend.setOnClickListener(view1 -> attemptComment());
 
         mAdapter.setOnLoadMoreListener(this);
 
@@ -144,41 +138,38 @@ public class CommentActivityFragment extends BottomSheetDialogFragment implement
         notifQuery.orderByAscending("updatedAt");
         notifQuery.setLimit(20);
         notifQuery.setSkip(mCurrentCounter);
-        notifQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(final List<ParseObject> data, ParseException e) {
-                if (e == null) {
+        notifQuery.findInBackground((data, e) -> {
+            if (e == null) {
 
-                    if (data.size() <= 0) {
-                        Log.i(TAG, "done: onloadmore data is zero ");
-                        mAdapter.notifyDataChangedAfterLoadMore(false);
-                        if (notLoadingView == null) {
-                            notLoadingView = getActivity().getLayoutInflater().inflate(R.layout.view_empty, (ViewGroup) mRecyclerView.getParent(), false);
-                        }
-                        mAdapter.addFooterView(notLoadingView);
-                    } else {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressBar.setVisibility(View.GONE);
-                                mAdapter.notifyDataChangedAfterLoadMore(data, true);
-                                mCurrentCounter = mAdapter.getData().size();
-
-
-                                Log.i(TAG, "run: current count" + mCurrentCounter);
-                                ParseObject.unpinAllInBackground("notifications", new DeleteCallback() {
-                                    public void done(ParseException e) {
-                                        ParseObject.pinAllInBackground("notifications", mAdapter.getData());
-                                    }
-                                });
-
-                            }
-                        }, delayMillis);
+                if (data.size() <= 0) {
+                    Log.i(TAG, "done: onloadmore data is zero ");
+                    mAdapter.notifyDataChangedAfterLoadMore(false);
+                    if (notLoadingView == null) {
+                        notLoadingView = getActivity().getLayoutInflater().inflate(R.layout.view_empty, (ViewGroup) mRecyclerView.getParent(), false);
                     }
-
+                    mAdapter.addFooterView(notLoadingView);
                 } else {
-                    Log.i(TAG, "done:error " + e.getMessage());
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                            mAdapter.notifyDataChangedAfterLoadMore(data, true);
+                            mCurrentCounter = mAdapter.getData().size();
+
+
+                            Log.i(TAG, "run: current count" + mCurrentCounter);
+                            ParseObject.unpinAllInBackground("notifications", new DeleteCallback() {
+                                public void done(ParseException e) {
+                                    ParseObject.pinAllInBackground("notifications", mAdapter.getData());
+                                }
+                            });
+
+                        }
+                    }, delayMillis);
                 }
+
+            } else {
+                Log.i(TAG, "done:error " + e.getMessage());
             }
         });
     }
