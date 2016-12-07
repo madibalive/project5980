@@ -14,13 +14,15 @@
         <RelativeLayout
             app:layout_scrollFlags="scroll"
             android:layout_width="match_parent"
-            android:layout_height="180dp">
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/header_profile"/>
 
         </RelativeLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
-            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

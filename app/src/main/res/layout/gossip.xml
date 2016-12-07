@@ -31,7 +31,7 @@
     <TextView
         android:drawableTint="@color/venu_red"
         android:drawablePadding="@dimen/dp_4"
-        android:drawableLeft="@drawable/ic_time_small"
+        android:drawableLeft="@drawable/ic_alarm_clock"
         android:gravity="center_vertical"
         android:textSize="@dimen/app_text_size_small"
         android:id="@+id/f_gossip_time"
@@ -50,7 +50,7 @@
 
         <TextView
             android:drawablePadding="@dimen/dp_4"
-            android:drawableLeft="@drawable/ic_thumb_default"
+            android:drawableLeft="@drawable/ic_like"
             android:textStyle="bold"
             android:id="@+id/f_like"
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         <TextView
             android:layout_marginLeft="30dp"
             android:drawablePadding="@dimen/dp_4"
-            android:drawableLeft="@drawable/ic_share_default"
+            android:drawableLeft="@drawable/ic_return"
             android:textStyle="bold"
             android:id="@+id/f_share"
             android:layout_width="wrap_content"

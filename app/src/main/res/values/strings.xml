@@ -96,6 +96,8 @@
     <string name="nav_manage">Profile</string>
     <string name="nav_account">Account</string>
     <string name="progress_connecting">Connecting to server</string>
+    <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_search">Search</string>
 
 
 </resources>

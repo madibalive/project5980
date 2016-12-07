@@ -71,7 +71,7 @@
 
         <ImageButton
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_linechart"
+            android:src="@drawable/ic_line_chart"
             android:layout_below="@id/main_event_date"
             android:layout_alignParentLeft="true"
             android:textSize="@dimen/app_text_size_large"
@@ -79,24 +79,26 @@
             android:gravity="center"
             android:layout_marginRight="6dp"
             android:id="@+id/main_event_trending"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="70dp" />
 
 
         <TextView
+            android:drawableRight="@drawable/ic_star"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_alignTop="@id/main_event_trending"
             android:layout_toRightOf="@id/main_event_trending"
             android:id="@+id/main_share"
-            android:text="824k favortes "
+            android:text="824k  "
             style="@style/veneTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:drawableRight="@drawable/ic_chat"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_alignTop="@id/main_event_trending"
             android:layout_toRightOf="@id/main_share"
-            android:text="12m comments "
+            android:text="12m  "
             style="@style/veneTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

@@ -37,19 +37,21 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.tatarka.rxloader.RxLoader;
+import me.tatarka.rxloader.RxLoaderManager;
+import me.tatarka.rxloader.RxLoaderManagerCompat;
+import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
 public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = "USER EVENTS";
     private RecyclerView mRecyclerView;
     private List<ParseObject> mDatas = new ArrayList<>();
     private TextView totalCount;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private UserEventsAdapter mAdapter;
-    private OnFragmentInteractionListener mListener;
-    private ParseQuery<ParseObject> notifQuery;
-    private ImageButton more;
     PopupMenu popupMenu ;
+    RxLoaderManager loaderManager;
+
 
     public UserEventsFragment() {
     }
@@ -75,6 +77,7 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loaderManager = RxLoaderManagerCompat.get(this);
 
         initAdapter();
 
@@ -82,6 +85,8 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
 
     private void initAdapter(){
         mAdapter = new UserEventsAdapter(R.layout.my_event_layout,mDatas);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL ,false));
         mAdapter.setOnRecyclerViewItemChildClickListener((adapter, view, position) -> {
             switch (view.getId()) {
 //                case R.id.event_type:
@@ -89,9 +94,8 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
 //                    break;
             }
         });
-
         mAdapter.setOnRecyclerViewItemClickListener((view, i) -> gotoEvent(i));
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL ,false));
+
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -106,49 +110,90 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onRefresh() {
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext()))
-            networkLoad();
+            reload();
         else
             mSwipeRefreshLayout.setRefreshing(false);
 
     }
 
+    private void initload(){
+        loaderManager.create(
+                LoaderEventManager.loadOnMyEvents(),
+                new RxLoaderObserver<List<ParseObject>>() {
+                    @Override
+                    public void onNext(List<ParseObject> value) {
+                        Timber.d("onnext");
+                        new Handler().postDelayed(() -> {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                            if (value.size()>0)
+                                mAdapter.setNewData(value);
+                        },500);
+                    }
+
+                    @Override
+                    public void onStarted() {
+                        Timber.d("stated");
+                        super.onStarted();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("stated error %s",e.getMessage());
+                        super.onError(e);
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        Timber.d("completed");
+                        super.onCompleted();
+                    }
+                }
+
+        ).start();
+    }
+    private void reload(){
+        RxLoader<List<ParseObject>> reload =loaderManager.create(
+                LoaderEventManager.loadOnMyEvents(),
+                new RxLoaderObserver<List<ParseObject>>() {
+                    @Override
+                    public void onNext(List<ParseObject> value) {
+                        Timber.d("onnext");
+                        new Handler().postDelayed(() -> {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                            if (value.size()>0)
+                                mAdapter.setNewData(value);
+                        },500);
+                    }
+
+                    @Override
+                    public void onStarted() {
+                        Timber.d("stated");
+                        super.onStarted();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("stated error %s",e.getMessage());
+                        super.onError(e);
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        Timber.d("completed");
+                        super.onCompleted();
+                    }
+                }
+
+        );
+
+        reload.restart();
+    }
+
     private void EditEvent(ParseObject event) {
-    }
-
-    private void networkLoad() {
-        notifQuery= ParseQuery.getQuery("EventsVersion3");
-        notifQuery.whereEqualTo("from", ParseUser.getCurrentUser());
-        notifQuery.orderByAscending("createdAt");
-        notifQuery.findInBackground((data, e) -> {
-            if (e == null) {
-                new Handler().postDelayed(() -> {
-                    mAdapter.setNewData(data);
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    ParseObject.unpinAllInBackground("user_events", e1 -> {
-                        ParseObject.pinAllInBackground("user_events", data);
-                    });
-                }, 500);
-            } else {
-                Timber.e("Error loading ontap %s",e.getMessage());
-
-            }
-        });
-    }
-
-    private void initialLoad() {
-
-        notifQuery= ParseQuery.getQuery("EventsVersion3");
-        notifQuery.whereEqualTo("from", ParseUser.getCurrentUser());
-        notifQuery.orderByAscending("createdAt");
-        notifQuery.fromLocalDatastore();
-        notifQuery.findInBackground((data, e) -> {
-            if (e == null) {
-                new Handler().postDelayed(() -> mAdapter.setNewData(data), 500);
-            } else {
-                Timber.e("Error loading ontap %s",e.getMessage());
-
-            }
-        });
     }
 
     private void gotoEvent(int pos) {
@@ -170,32 +215,6 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
     }
 
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
 
     private class UserEventsAdapter
             extends BaseQuickAdapter<ParseObject> {
@@ -227,27 +246,9 @@ public class UserEventsFragment extends Fragment implements SwipeRefreshLayout.O
     }
 
     @Override
-    public void onPause() {
-        if (notifQuery !=null)
-            notifQuery.cancel();
-        super.onPause();
-
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-
-    }
-
-    @Override
-    public void onStop() {
-
-        EventBus.getDefault().unregister(this);
-
-        super.onStop();
-
+    public void onResume() {
+        super.onResume();
+        if (NetUtils.hasInternetConnection(getActivity().getApplicationContext()))
+            initload();
     }
 }

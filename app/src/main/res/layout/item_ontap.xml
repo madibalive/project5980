@@ -37,6 +37,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
 
     <TextView
+        android:textColor="@color/white"
+        android:textStyle="bold"
         android:paddingTop="@dimen/dp_4"
         android:paddingBottom="@dimen/dp_4"
         android:layout_marginRight="@dimen/dp_10"

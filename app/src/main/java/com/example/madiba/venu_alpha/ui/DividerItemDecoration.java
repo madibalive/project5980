@@ -1,4 +1,4 @@
-package com.example.madiba.venu_alpha.utils;
+package com.example.madiba.venu_alpha.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;

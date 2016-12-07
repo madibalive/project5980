@@ -39,6 +39,7 @@
 
     <com.example.madiba.venu_alpha.ui.StateButton
         android:minHeight="0dp"
+        android:minWidth="0dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:id="@+id/cc_i_unfollow"

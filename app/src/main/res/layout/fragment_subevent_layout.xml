@@ -16,7 +16,7 @@
             android:id="@+id/info_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/event_main_bar" />
+            layout="@layout/event_main_layout" />
 
         <include
             android:id="@+id/info_bar"

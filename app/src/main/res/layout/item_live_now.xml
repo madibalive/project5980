@@ -2,19 +2,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="120dp"
     android:layout_height="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginLeft="8dp"
     android:layout_marginBottom="8dp"
     android:orientation="vertical">
 
     <com.android.liuzhuang.rcimageview.RoundCornerImageView
-        android:id="@+id/channel_item_imageView"
+        android:id="@+id/live_now_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@color/venu_flat_color"
+        app:rciv_radius="@dimen/card_corner_radius_4dp"
        />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/live_now_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"

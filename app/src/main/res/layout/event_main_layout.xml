@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+
+
+
+        <TextView
+            android:text="@string/a_function_that_creates_a_new_instance_of_the_fragment"
+            style="@style/veneProfileName"
+            android:textAllCaps="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:padding="@dimen/padding_normal"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_bar_code_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_bar_code_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_bar_code_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_bar_code_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_bar_code_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_bar_code_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_bar_code_large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:drawablePadding="@dimen/dp_4"
+                android:drawableLeft="@drawable/ic_star"
+                style="@style/veneTitleText"
+                android:text="120k"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:drawablePadding="@dimen/dp_4"
+                android:drawableLeft="@drawable/ic_chat"
+                style="@style/veneTitleText"
+                android:text="40k"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.android.liuzhuang.rcimageview.CircleImageView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/f_avatar"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@color/venu_flat_color"
+                />
+
+            <TextView
+                android:id="@+id/organiser"
+                android:layout_alignTop="@id/f_avatar"
+                android:layout_toRightOf="@id/f_avatar"
+                android:textSize="@dimen/app_text_size_small"
+                android:text="Organiser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_below="@id/organiser"
+                android:layout_toRightOf="@id/f_avatar"
+                android:textSize="@dimen/app_text_size_medium"
+                android:text="Kevent bee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/event_infor_layout_2"
+
+
+        <FrameLayout
+            android:layout_margin="@dimen/padding_normal"
+            android:background="@drawable/applozic_map_offline_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_margin="@dimen/padding_normal"
+                android:layout_width="wrap_content"
+                android:layout_gravity="bottom"
+                android:src="@drawable/ic_cursor"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+        <include
+            layout="@layout/event_buy_ticket"/>
+
+
+
+
+        <TextView
+            android:drawablePadding="@dimen/padding_normal"
+            android:gravity="center_vertical"
+            android:text="Event Description"
+            android:drawableLeft="@drawable/ic_help_2"
+            android:paddingLeft="@dimen/padding_normal"
+            android:textSize="@dimen/app_text_size_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:padding="@dimen/dp_22"
+            android:text="DFA stands for deterministic finite automaton. Basically, it is a directed graph where each
+node has edges coming out of it labeled with the letters from a fixed finite alphabet Σ. One
+node is designated as the start node, and a set of nodes are designated as final nodes"
+            style="@style/veneProfileName"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</ScrollView>

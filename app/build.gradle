@@ -17,8 +17,8 @@ android {
         multiDexEnabled true
         buildConfigField("boolean", "SHOW_VARIANT", "false")
 
-        def addConstant = {constantName, constantValue ->
-            manifestPlaceholders = [ (constantName):constantValue]
+        def addConstant = { constantName, constantValue ->
+            manifestPlaceholders = [(constantName): constantValue]
             buildConfigField "String", "${constantName}", "\"${constantValue}\""
         }
 
@@ -47,14 +47,14 @@ android {
 
 }
 
-ext{
-    supportLibraryVersion='25.0.0'
-    multidexVersion='1.0.1'
-    playServicesVersion='9.4.0'
-    baseAdapterVersion='v1.9.8'
-    adobeAuthVersion='0.9.1186'
-    adobeImageVersion='4.8.3'
-    adobeLibray='3.8.0'
+ext {
+    supportLibraryVersion = '25.0.0'
+    multidexVersion = '1.0.1'
+    playServicesVersion = '9.4.0'
+    baseAdapterVersion = 'v1.9.8'
+    adobeAuthVersion = '0.9.1186'
+    adobeImageVersion = '4.8.3'
+    adobeLibray = '3.8.0'
 
 }
 
@@ -71,7 +71,6 @@ dependencies {
     compile "com.android.support:support-v4:$supportLibraryVersion"
     compile "com.android.support:multidex:$multidexVersion"
 
-    compile 'me.tatarka.rxloader:rxloader:1.1.0'
     compile 'com.parse:parse-android:1.+'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.google.android.gms:play-services:9.8.0'
@@ -93,7 +92,9 @@ dependencies {
     compile 'com.wonderkiln:blurkit:1.0.0'
     compile 'com.danikula:videocache:2.6.3'
     compile 'rongi.async-task:async-task:1.0.1'
+    compile 'me.tatarka.rxloader:rxloader:1.1.0'
     compile 'com.liuzhuang.opensource:rcimageview:0.0.2'
+    compile 'com.android.support:support-v4:25.0.0'
     testCompile 'junit:junit:4.12'
 }
 

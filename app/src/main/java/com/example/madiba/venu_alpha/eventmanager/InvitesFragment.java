@@ -1,8 +1,6 @@
 package com.example.madiba.venu_alpha.eventmanager;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,40 +10,40 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.madiba.venu_alpha.LaunchActivity;
 import com.example.madiba.venu_alpha.R;
 import com.example.madiba.venu_alpha.models.GlobalConstants;
-import com.parse.DeleteCallback;
-import com.parse.FindCallback;
-import com.parse.ParseException;
+import com.example.madiba.venu_alpha.utils.NetUtils;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.tatarka.rxloader.RxLoader;
+import me.tatarka.rxloader.RxLoaderManager;
+import me.tatarka.rxloader.RxLoaderManagerCompat;
+import me.tatarka.rxloader.RxLoaderObserver;
+import timber.log.Timber;
 
 public class InvitesFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "USER EVENTS";
     private RecyclerView mRecyclerView;
     private List<ParseObject> mDatas = new ArrayList<>();
     private TextView totalCount;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private UserEventsAdapter mAdapter;
-    private OnFragmentInteractionListener mListener;
-    private ParseQuery<ParseObject> notifQuery;
-    private ImageButton more;
     PopupMenu popupMenu ;
+    RxLoaderManager loaderManager;
+
 
 
     public InvitesFragment() {
@@ -63,119 +61,108 @@ public class InvitesFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_event_manager_v3, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.invites_rcview);
+        View view= inflater.inflate(R.layout.container_core, container, false);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.container_recyclerview);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.core_swipelayout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAdapter = new UserEventsAdapter(R.layout.event_card_invite,mDatas);
+        loaderManager = RxLoaderManagerCompat.get(this);
 
-        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int i) {
-                gotoEvent(i);
-
-            }
-        });
-
+        mAdapter = new UserEventsAdapter(R.layout.my_event_layout,mDatas);
+        mAdapter.setOnRecyclerViewItemClickListener((view1, i) -> gotoEvent(i));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL ,false));
         mRecyclerView.setAdapter(mAdapter);
 
     }
 
-
     @Override
     public void onRefresh() {
-        networkLoad();
-
+        if (NetUtils.hasInternetConnection(getActivity().getApplicationContext()))
+            reload();
+        else
+            mSwipeRefreshLayout.setRefreshing(false);
     }
 
+    private void initload(){
+        loaderManager.create(
+                LoaderEventManager.loadInvites(),
+                new RxLoaderObserver<List<ParseObject>>() {
+                    @Override
+                    public void onNext(List<ParseObject> value) {
+                        Timber.d("onnext");
+                        new Handler().postDelayed(() -> {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                            if (value.size()>0)
+                                mAdapter.setNewData(value);
+                        },500);
+                    }
 
+                    @Override
+                    public void onStarted() {
+                        Timber.d("stated");
+                        super.onStarted();
+                    }
 
-    private void networkLoad() {
-        notifQuery= ParseQuery.getQuery("EventsVersion3");
-        notifQuery.whereEqualTo("from", ParseUser.getCurrentUser());
-        notifQuery.orderByAscending("createdAt");
-        notifQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(final List<ParseObject> data, ParseException e) {
-                if (e == null) {
-                    Log.i(TAG, "done: got initial data" + data.size());
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAdapter.setNewData(data);
-                            swipeRefreshLayout.setRefreshing(false);
-                            ParseObject.unpinAllInBackground("user_events", new DeleteCallback() {
-                                public void done(ParseException e) {
-                                    ParseObject.pinAllInBackground("user_events", data);
-                                }
-                            });
-                        }
-                    }, 500);
-                } else {
-                    Log.i(TAG, "done:error " + e.getMessage());
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("stated error %s",e.getMessage());
+                        super.onError(e);
+                        mSwipeRefreshLayout.setRefreshing(false);
 
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        Timber.d("completed");
+                        super.onCompleted();
+                    }
                 }
-            }
-        });
+
+        ).start();
     }
+    private void reload(){
+        RxLoader<List<ParseObject>> reload =loaderManager.create(
+                LoaderEventManager.loadInvites(),
+                new RxLoaderObserver<List<ParseObject>>() {
+                    @Override
+                    public void onNext(List<ParseObject> value) {
+                        Timber.d("onnext");
+                        new Handler().postDelayed(() -> {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                            if (value.size()>0)
+                                mAdapter.setNewData(value);
+                        },500);
+                    }
 
-    private void initialLoad() {
+                    @Override
+                    public void onStarted() {
+                        Timber.d("stated");
+                        super.onStarted();
+                    }
 
-        notifQuery= ParseQuery.getQuery("EventsVersion3");
-        notifQuery.whereEqualTo("from", ParseUser.getCurrentUser());
-        notifQuery.orderByAscending("createdAt");
-        notifQuery.fromLocalDatastore();
-        notifQuery.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(final List<ParseObject> data, ParseException e) {
-                if (e == null) {
-                    Log.i(TAG, "done: got initial data" + data.size());
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mAdapter.setNewData(data);
-                        }
-                    }, 500);
-                } else {
-                    Log.i(TAG, "done:error " + e.getMessage());
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("stated error %s",e.getMessage());
+                        super.onError(e);
+                        mSwipeRefreshLayout.setRefreshing(false);
 
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        Timber.d("completed");
+                        super.onCompleted();
+                    }
                 }
-            }
-        });
+
+        );
     }
 
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
-    }
 
     private class UserEventsAdapter
             extends BaseQuickAdapter<ParseObject> {
@@ -198,7 +185,6 @@ public class InvitesFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
             Glide.with(mContext).load(data.getParseFile("image").getUrl())
                     .thumbnail(0.1f)
-                    .error(R.drawable.kayaks)
                     .crossFade()
                     .centerCrop()
                     .into((ImageView) holder.getView(R.id.event_image));
@@ -209,7 +195,7 @@ public class InvitesFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     private void gotoEvent(int pos) {
         ParseObject a= mAdapter.getItem(pos);
-        Intent event = new Intent(getActivity(), EventPageV2Activity.class);
+        Intent event = new Intent(getActivity(), LaunchActivity.class);
         event.putExtra(GlobalConstants.EVP_BANNER, a.getParseFile("image").getUrl());
         event.putExtra(GlobalConstants.EVP_TITLE,a.getString("title"));
         event.putExtra(GlobalConstants.EVP_Hashtag, a.getString("title"));
@@ -225,25 +211,11 @@ public class InvitesFragment extends Fragment implements SwipeRefreshLayout.OnRe
         startActivity(event);
     }
 
-    @Override
-    public void onPause() {
-        if (notifQuery !=null)
-            notifQuery.cancel();
-        super.onPause();
-
-    }
-
-    @Override
-    public void onStop() {
-        if (notifQuery !=null)
-            notifQuery.cancel();
-        super.onStop();
-    }
 
     @Override
     public void onResume() {
         super.onResume();
-        initialLoad();
-
+        if (NetUtils.hasInternetConnection(getActivity().getApplicationContext()))
+            initload();
     }
 }

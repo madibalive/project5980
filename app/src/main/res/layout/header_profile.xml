@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.CardView android:layout_width="match_parent"
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/card_corner_radius_0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    cardCornerRadius="4dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout android:id="@+id/activity_main"
         android:layout_marginBottom="20dp"
@@ -62,7 +62,6 @@
             android:layout_toRightOf="@+id/image" />
 
 
-
         <LinearLayout
             android:id="@+id/user_prof_stat"
             android:layout_width="match_parent"
@@ -95,9 +94,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:text="Peeps"
+                        android:textSize="@dimen/app_text_size_small"
                         android:textColor="#66424242" />
                 </LinearLayout>
 
@@ -127,9 +127,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:text="Events"
+                        android:textSize="@dimen/app_text_size_small"
                         android:textColor="#66424242" />
                 </LinearLayout>
 
@@ -159,9 +160,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:text="Followers"
+                        android:textSize="@dimen/app_text_size_small"
+
                         android:textColor="#66424242" />
                 </LinearLayout>
 
@@ -185,15 +188,17 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:gravity="center"
                         android:text="1782"
+
                         android:textColor="#880E4F"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="2dp"
                         android:gravity="center"
                         android:text="Followers"
+                        android:textSize="@dimen/app_text_size_small"
                         android:textColor="#66424242" />
                 </LinearLayout>
             </LinearLayout>

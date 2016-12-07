@@ -8,9 +8,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+    <com.android.liuzhuang.rcimageview.CircleImageView
         android:id="@+id/user_act_avatar"
-        app:srcCompat="@drawable/ic_default_avatar"
+        app:srcCompat="@color/venu_flat_color"
         android:layout_width="@dimen/avatar_small"
         android:layout_height="@dimen/avatar_small" />
 
@@ -23,7 +23,6 @@
         android:layout_height="wrap_content" />
 
     <Button
-
         android:text="Follow"
         style="@style/venuButton.small"
         android:layout_centerVertical="true"

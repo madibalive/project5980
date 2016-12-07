@@ -31,21 +31,12 @@
             style="@style/veneProfileName"
 
             />
-        <TextView
-            android:layout_below="@id/user_prof_name"
-            android:id="@+id/details"
-            android:padding="@dimen/padding_normal"
-            android:text="Yh i read a bit on it, my biased conclusiong is very unlikely, based on the followingThe technologoical revolution"
-            android:textSize="@dimen/app_text_size_small"
-            android:layout_marginRight="@dimen/dp_22"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:id="@+id/user_prof_stat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/details"
+            android:layout_below="@id/user_prof_name"
             android:layout_marginTop="5dp"
             android:orientation="vertical">
 
@@ -73,7 +64,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:textSize="@dimen/app_text_size_small"
                         android:gravity="center"
                         android:text="Peeps"
@@ -106,7 +97,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Events"
                         android:textSize="@dimen/app_text_size_small"
@@ -139,7 +130,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Fans"
                         android:textSize="@dimen/app_text_size_small"
@@ -150,6 +141,16 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <TextView
+            android:layout_below="@id/user_prof_stat"
+            android:id="@+id/details"
+            android:padding="@dimen/padding_normal"
+            android:text="Yh i read a bit on it, my biased conclusiong is very unlikely, based on the followingThe technologoical revolution"
+            android:textSize="@dimen/app_text_size_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
 
         <com.example.madiba.venu_alpha.ui.StateButton
             style="@style/venuButton.small"

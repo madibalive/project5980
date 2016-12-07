@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+    <com.android.liuzhuang.rcimageview.CircleImageView
         android:id="@+id/f_avatar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -166,7 +166,7 @@
         android:layout_below="@id/f_more"
         android:drawablePadding="@dimen/dp_4"
         android:gravity="center_vertical"
-        android:drawableLeft="@drawable/ratingbar_star_filled"
+        android:drawableLeft="@drawable/ic_star"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:id="@+id/f_like"
@@ -179,7 +179,7 @@
     <TextView
         android:layout_below="@id/f_more"
         android:drawablePadding="@dimen/dp_4"
-        android:drawableLeft="@drawable/ic_comment_default"
+        android:drawableLeft="@drawable/ic_chat_2"
         android:textColor="@color/black"
         android:layout_toRightOf="@id/f_like"
         android:textStyle="bold"
@@ -193,7 +193,7 @@
     <TextView
         android:layout_below="@id/f_more"
         android:drawablePadding="@dimen/dp_4"
-        android:drawableLeft="@drawable/ic_share_default"
+        android:drawableLeft="@drawable/ic_return"
         android:textColor="@color/black"
         android:layout_alignParentRight="true"
         android:textStyle="bold"

@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +18,17 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venu_alpha.R;
 import com.example.madiba.venu_alpha.modal.RequestFragment;
-import com.example.madiba.venu_alpha.utils.DividerItemDecoration;
+import com.example.madiba.venu_alpha.obervables.GeneralLoaders;
+import com.example.madiba.venu_alpha.ui.DividerItemDecoration;
 import com.example.madiba.venu_alpha.utils.NetUtils;
-import com.parse.DeleteCallback;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.tatarka.rxloader.RxLoaderManager;
+import me.tatarka.rxloader.RxLoaderManagerCompat;
+import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
 
@@ -39,10 +37,11 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerview;
     private View root;
-
     private OnTapDirAdapter mAdapter;
     private List<ParseObject> mDatas=new ArrayList<>();
-    private ParseQuery<ParseObject> notifQuery;
+
+    RxLoaderManager loaderManager;
+
     public OnTapActivityFragment() {
     }
 
@@ -68,6 +67,7 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loaderManager = RxLoaderManagerCompat.get(this);
         initAdapter();
 
 
@@ -84,7 +84,7 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
         });
 
         mAdapter.setOnRecyclerViewItemLongClickListener((view, i) -> {
-            delete(i);
+//            delete(i);
             return false;
 
         });
@@ -98,10 +98,9 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        if (notifQuery != null){
-            notifQuery.cancel();
+        if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
+            initload();
         }
-        load();
     }
 
 
@@ -126,21 +125,44 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
 
     }
 
-    private void load() {
-        notifQuery = ParseQuery.getQuery("OnTapRequest");
-        notifQuery.whereEqualTo("from",ParseUser.getCurrentUser());
-        notifQuery.findInBackground((objects, e) -> {
-            if (e == null) {
-                new Handler().postDelayed(() -> {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    if (objects.size()>0)
-                        mAdapter.setNewData(objects);
-                },500);
-            } else {
-                Timber.e("Error loading ontap %s",e.getMessage());
-            }
-        });
+    void initload(){
+        loaderManager.create(
+                GeneralLoaders.loadOnTap(),
+                new RxLoaderObserver<List<ParseObject>>() {
+                    @Override
+                    public void onNext(List<ParseObject> value) {
+                        Timber.d("onnext");
+                        new Handler().postDelayed(() -> {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                            if (value.size()>0)
+                                mAdapter.setNewData(value);
+                        },500);
+                    }
+
+                    @Override
+                    public void onStarted() {
+                        Timber.d("stated");
+                        super.onStarted();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("stated error %s",e.getMessage());
+                        super.onError(e);
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        Timber.d("completed");
+                        super.onCompleted();
+                    }
+                }
+
+        ).start();
     }
+
 
     private class OnTapDirAdapter
             extends BaseQuickAdapter<ParseObject> {
@@ -164,24 +186,8 @@ public class OnTapActivityFragment extends Fragment implements SwipeRefreshLayou
     public void onResume() {
         super.onResume();
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
-            load();
+            initload();
         }
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        if (notifQuery != null){
-            notifQuery.cancel();
-        }
-        super.onStop();
-    }
-
-
-
 
 }

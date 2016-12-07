@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView android:layout_marginStart="100dp"
+<android.support.v7.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="100dp"
+    android:layout_marginLeft="50dp"
     android:layout_marginTop="@dimen/dp_4"
     android:layout_marginBottom="@dimen/dp_4"
     android:layout_marginRight="@dimen/dp_4"
@@ -10,7 +10,72 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/ic_tag"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
+
+        <View
+            android:layout_margin="@dimen/card_corner_radius_4dp"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#aa424242" />
+
+
+
+        <RelativeLayout
+            android:layout_width="@dimen/card_corner_radius_0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/buy_title"
+                android:padding="@dimen/dp_4"
+                android:text="You can buy a ticket for this event "
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                />
+
+            <TextView
+                style="@style/veneProfileName"
+                android:layout_below="@id/buy_title"
+                android:id="@+id/buy_price"
+                android:padding="@dimen/dp_4"
+                android:text=" GH 50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.example.madiba.venu_alpha.ui.StateButton
+                android:layout_below="@id/buy_title"
+                android:layout_alignParentRight="true"
+                android:id="@+id/login_button"
+                android:minHeight="@dimen/card_corner_radius_0dp"
+                android:text="Buy ticket "
+                android:paddingLeft="@dimen/card_corner_radius_4dp"
+                app:normalBackgroundColor="@color/venu_blue"
+                app:normalStrokeColor="@color/venu_flat_color"
+                app:normalStrokeWidth="2dp"
+                app:normalTextColor="@color/white"
+                app:pressedBackgroundColor="@color/venu_flat_color"
+                app:pressedTextColor="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:visibility="gone"
         android:id="@+id/card_root"
         android:orientation="vertical"
         android:layout_width="match_parent"

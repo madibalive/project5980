@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/header"
+        android:id="@+id/bare_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:selectableItemBackground"
@@ -16,7 +16,7 @@
 
         <TextView
             android:text="Entertainment"
-            android:id="@+id/card_container_title"
+            android:id="@+id/bare_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|start|left"
@@ -25,7 +25,7 @@
 
         <TextView
             android:text="See all"
-            android:id="@+id/card_container_more"
+            android:id="@+id/bare_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/padding_normal"
@@ -36,7 +36,7 @@
 
     </FrameLayout>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/cards"
+        android:id="@+id/bare_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" />

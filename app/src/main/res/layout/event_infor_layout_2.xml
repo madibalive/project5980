@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_normal"
+            android:paddingLeft="@dimen/padding_normal"
+            android:text="Date -upcoming"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView16"
+            android:layout_alignLeft="@+id/textView16"
+            android:layout_alignStart="@+id/textView16"
+            android:id="@+id/textView17" />
+
+
+        <TextView
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingTop="@dimen/padding_normal"
+            android:paddingLeft="@dimen/padding_normal"
+            android:text="Time"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView16"
+            android:layout_alignLeft="@+id/textView16"
+            android:layout_alignStart="@+id/textView16"
+            android:id="@+id/textView17" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/light_grey_200"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            style="@style/veneProfileName"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="22 Mar "
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView16"
+            android:layout_lignLeft="@+id/textView16"
+            android:layout_alignStart="@+id/textView16"
+            android:id="@+id/textView17" />
+
+
+        <TextView
+            style="@style/veneProfileName"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="6:00 pm"
+            android:layout_weight="1"
+            android:layout_width="0dp"            android:layout_height="wrap_content"
+            android:layout_below="@id/textView16"
+            android:layout_alignLeft="@+id/textView16"
+            android:layout_alignStart="@+id/textView16"
+            android:id="@+id/textView17" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:drawablePadding="@dimen/card_corner_radius_4dp"
+        android:drawableLeft="@drawable/ic_map"
+        style="@style/veneProfileName"
+        android:text="4th street rooad ,21 avaenu road"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_alignBaseline="@+id/textView14"
+        android:layout_alignBottom="@+id/textView14"
+        android:layout_alignLeft="@+id/textView15"
+        android:layout_alignStart="@+id/textView15" />
+
+</LinearLayout>

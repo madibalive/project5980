@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -17,11 +17,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.liuzhuang.rcimageview.RoundCornerImageView;
@@ -33,8 +30,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import com.example.madiba.venu_alpha.R;
 import com.example.madiba.venu_alpha.models.GlobalConstants;
+import com.example.madiba.venu_alpha.models.ModelLoadLocal;
 import com.example.madiba.venu_alpha.models.PhoneContact;
-import com.example.madiba.venu_alpha.utils.DividerItemDecoration;
+import com.example.madiba.venu_alpha.obervables.LoaderLocalContact;
+import com.example.madiba.venu_alpha.ui.DividerItemDecoration;
 import com.example.madiba.venu_alpha.utils.ImageUitls;
 import com.example.madiba.venu_alpha.utils.NetUtils;
 import com.parse.FindCallback;
@@ -47,10 +46,13 @@ import com.parse.ParseUser;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import bolts.Continuation;
 import bolts.Task;
+import me.tatarka.rxloader.RxLoader;
+import me.tatarka.rxloader.RxLoaderManager;
+import me.tatarka.rxloader.RxLoaderManagerCompat;
+import me.tatarka.rxloader.RxLoaderObserver;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import timber.log.Timber;
@@ -72,10 +74,15 @@ public class OnboardUsersActivity extends AppCompatActivity implements EasyPermi
     private contactAdapter mAdapter;
     private List<ParseUser> mDatas;
 
+    RxLoaderManager loaderManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboard_users);
+        loaderManager =  RxLoaderManagerCompat.get(this);
+
         initViews();
         initAdapter();
         initListener();
@@ -119,82 +126,93 @@ public class OnboardUsersActivity extends AppCompatActivity implements EasyPermi
             if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_CONTACTS)) {
                 progress = ProgressDialog.show(OnboardUsersActivity.this, null,
                         "Importing Contacts", true);
-                getAll(getApplicationContext());
+
+                initload();
             } else {
                 EasyPermissions.requestPermissions(this, getString(R.string.permission_contact),
                         RC_LOCATION_CONTACTS_PERM, Manifest.permission.READ_CONTACTS);
             }
         }else {
-            getAll(getApplicationContext());
+            initload();
         }
 
     }
+    void initload(){
 
-
-
-    public void getAll(Context context) {
-        alContacts = new ArrayList<>();
-        phoneNumbers = new ArrayList<>();
-        ContentResolver cr = context.getContentResolver();
-        Cursor cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                PhoneContact person = new PhoneContact();
-
-                String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                String name = cursor.getString(cursor.getColumnIndex(
-                        ContactsContract.Contacts.DISPLAY_NAME));
-                person.setId(id);
-                person.setUsername(name);
-                if (Integer.parseInt(cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                    Cursor pCur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
-                    while (pCur.moveToNext()) {
-                        String contactNumber = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        contactNumber=contactNumber.replaceAll("\\s+", "");
-                        person.setPhoneNumber(contactNumber);
-                        phoneNumbers.add(contactNumber);
-                        break;
+       loaderManager.create(
+                LoaderLocalContact.loadOnce(getApplicationContext()),
+                new RxLoaderObserver<List<ParseUser>>() {
+                    @Override
+                    public void onNext(List<ParseUser> value) {
+                        Timber.d("onnext");
+                        new Handler().postDelayed(() -> {
+                            mAdapter.setNewData(value);
+                            mAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
+                                ParseObject follow = new ParseObject("FollowVersion3");
+                                follow.put("from", ParseUser.getCurrentUser());
+                                follow.put("to", mAdapter.getItem(i));
+                                follow.put("fromId", ParseUser.getCurrentUser().getObjectId());
+                                follow.put("toId", mAdapter.getItem(i).getObjectId());
+                                follow.put("type", GlobalConstants.TYPE_FOLLOW);
+                                follow.saveInBackground();
+                                mAdapter.remove(i);
+                                mAdapter.notifyItemRemoved(i);
+                            });
+                        },500);
                     }
-                    pCur.close();
+
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
                 }
-                alContacts.add(person);
-            } while (cursor.moveToNext());
-            syncContacts();
-        } else {
-            progress.dismiss();
-        }
+
+        ).start();
     }
 
+    void reload(){
 
-    private  void syncContacts() {
+        final RxLoader<List<ParseUser>> myLoader =loaderManager.create(
+                LoaderLocalContact.loadOnce(getApplicationContext()),
+                new RxLoaderObserver<List<ParseUser>>() {
+                    @Override
+                    public void onNext(List<ParseUser> value) {
+                        Timber.d("onnext");
+                        new Handler().postDelayed(() -> {
+                            mAdapter.setNewData(value);
+                            mAdapter.setOnRecyclerViewItemClickListener((view, i) -> {
+                                ParseObject follow = new ParseObject("FollowVersion3");
+                                follow.put("from", ParseUser.getCurrentUser());
+                                follow.put("to", mAdapter.getItem(i));
+                                follow.put("fromId", ParseUser.getCurrentUser().getObjectId());
+                                follow.put("toId", mAdapter.getItem(i).getObjectId());
+                                follow.put("type", GlobalConstants.TYPE_FOLLOW);
+                                follow.saveInBackground();
+                                mAdapter.remove(i);
+                                mAdapter.notifyItemRemoved(i);
+                            });
+                        },500);
+                    }
 
-        ParseQuery<ParseUser> syncQuery = ParseUser.getQuery();
-        syncQuery.whereContainedIn("phone", phoneNumbers);
-        syncQuery.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> objects, ParseException e) {
-                progress.dismiss();
-                if (e == null && objects.size() > 0) {
-                    mAdapter.setNewData(objects);
-                    mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-                        @Override
-                        public void onItemClick(View view, int i) {
-                            ParseObject follow = new ParseObject("FollowVersion3");
-                            follow.put("from", ParseUser.getCurrentUser());
-                            follow.put("to", mAdapter.getItem(i));
-                            follow.put("fromId", ParseUser.getCurrentUser().getObjectId());
-                            follow.put("toId", mAdapter.getItem(i).getObjectId());
-                            follow.put("type", GlobalConstants.TYPE_FOLLOW);
-                            follow.saveInBackground();
-                            mAdapter.remove(i);
-                            mAdapter.notifyItemRemoved(i);
-                        }
-                    });
-                } else {
-                    Toast.makeText(OnboardUsersActivity.this,"Import return no user ",Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
                 }
-            }
-        });
+
+        );
+
+        myLoader.restart();
     }
 
 

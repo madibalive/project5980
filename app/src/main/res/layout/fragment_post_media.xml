@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/content_media_post"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -48,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                    android:hint="#Create Hashtag" />
+                    android:hint="#hashtag caption msg" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -72,12 +73,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
+        <com.example.madiba.venu_alpha.ui.StateButton
             android:id="@+id/mp_new_btn"
+            android:minHeight="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Post"
+            app:normalBackgroundColor="@color/venu_flat_color"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     </LinearLayout>

@@ -8,43 +8,37 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.madiba.venu_alpha.R;
-import com.example.madiba.venu_alpha.utils.DividerItemDecoration;
+import com.example.madiba.venu_alpha.obervables.GeneralLoaders;
+import com.example.madiba.venu_alpha.ui.DividerItemDecoration;
 import com.example.madiba.venu_alpha.utils.NetUtils;
-import com.parse.DeleteCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.tatarka.rxloader.RxLoaderManager;
+import me.tatarka.rxloader.RxLoaderManagerCompat;
+import me.tatarka.rxloader.RxLoaderObserver;
 import timber.log.Timber;
 
 
 public class NotificationFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
-    private static final String TAG = "NOTIF_FRAGMENT";
     private RecyclerView mRecyclerView;
     private NotifAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private View notLoadingView;
-    private int delayMillis = 1000;
     private int mCurrentCounter = 0;
     private List<ParseObject> mDatas;
+    RxLoaderManager loaderManager;
 
-    ParseQuery<ParseObject> notifQuery;
     public NotificationFragment() {
     }
 
@@ -72,9 +66,9 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loaderManager = RxLoaderManagerCompat.get(this);
         mSwipeRefreshLayout.setOnRefreshListener(this);
         initAdapter();
-        initialLoad();
     }
 
     private void initAdapter(){
@@ -110,7 +104,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     public void onRefresh() {
         mSwipeRefreshLayout.setRefreshing(true);
         if (NetUtils.hasInternetConnection(getActivity().getApplicationContext()))
-            load();
+            initialLoad();
         else
             mSwipeRefreshLayout.setRefreshing(false);
     }
@@ -118,90 +112,71 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
 
     @Override
     public void onLoadMoreRequested() {
-        if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())) {
-            load();
-            if (notifQuery != null) {
-                notifQuery.cancel();
-            }
-            notifQuery = ParseQuery.getQuery("Activities");
-            notifQuery.whereEqualTo("to", ParseUser.getCurrentUser());
-            notifQuery.include("from");
-            notifQuery.orderByAscending("Created");
-            notifQuery.setLimit(20);
-            notifQuery.setSkip(mCurrentCounter);
-            notifQuery.findInBackground((data, e) -> {
-                if (e == null) {
+        if (NetUtils.hasInternetConnection(getActivity().getApplicationContext())){
+            initialLoad();
+        }else
+            mSwipeRefreshLayout.setRefreshing(false);
+    }
 
-                    if (data.size() <= 0) {
-                        mAdapter.notifyDataChangedAfterLoadMore(false);
-                        if (notLoadingView == null) {
-                            notLoadingView = getActivity().getLayoutInflater().inflate(R.layout.view_no_more_data, (ViewGroup) mRecyclerView.getParent(), false);
+    private void initialLoad(){
+        loaderManager.create(
+                GeneralLoaders.loadNotifications(mCurrentCounter),
+                new RxLoaderObserver<List<ParseObject>>() {
+                    @Override
+                    public void onNext(List<ParseObject> value) {
+                        Timber.d("onnext");
+                        if (value.size() <= 0) {
+                            mAdapter.notifyDataChangedAfterLoadMore(false);
+                            if (notLoadingView == null) {
+                                notLoadingView = getActivity().getLayoutInflater().inflate(R.layout.view_no_more_data, (ViewGroup) mRecyclerView.getParent(), false);
+                            }
+                            mAdapter.addFooterView(notLoadingView);
+
+                        } else {
+                            new Handler().postDelayed(() -> {
+                                mAdapter.removeAllFooterView();
+                                if (mSwipeRefreshLayout.isRefreshing()) {
+                                    mSwipeRefreshLayout.setRefreshing(false);
+                                    mAdapter.setNewData(value);
+                                    mAdapter.openLoadMore(20, true);
+                                    mAdapter.removeAllFooterView();
+                                }else {
+                                    mAdapter.notifyDataChangedAfterLoadMore(value, true);
+                                    mCurrentCounter = mAdapter.getData().size();
+                                }
+                                mCurrentCounter = mAdapter.getData().size();
+                                ParseObject.unpinAllInBackground("notifications", e1 -> {
+                                    ParseObject.pinAllInBackground("notifications", value);
+                                });
+                            }, 500);
+
                         }
-                        mAdapter.addFooterView(notLoadingView);
-                    } else {
-                        new Handler().postDelayed(() -> {
-                            mAdapter.notifyDataChangedAfterLoadMore(data, true);
-                            mCurrentCounter = mAdapter.getData().size();
-
-                            ParseObject.unpinAllInBackground("notifications", e1 -> {
-                                ParseObject.pinAllInBackground("notifications", mAdapter.getData());
-                            });
-                        }, delayMillis);
                     }
 
-                } else {
-                    Timber.e("Error loading ontap %s",e.getMessage());
+                    @Override
+                    public void onStarted() {
+                        Timber.d("stated");
+                        super.onStarted();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.d("stated error %s",e.getMessage());
+                        super.onError(e);
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        Timber.d("completed");
+                        super.onCompleted();
+                    }
                 }
 
-            });
-        }
+        ).start();
     }
 
-    void load() {
-        if (notifQuery != null){
-            notifQuery.cancel();
-        }
-        notifQuery = ParseQuery.getQuery("Activities");
-        notifQuery.whereEqualTo("to", ParseUser.getCurrentUser());
-        notifQuery.include("from");
-        notifQuery.orderByAscending("Created");
-        notifQuery.setLimit(20);
-        notifQuery.findInBackground((objects, e) -> {
-            if (e == null) {
-                new Handler().postDelayed(() -> {
-                    mAdapter.setNewData(objects);
-                    mAdapter.openLoadMore(20, true);
-                    mAdapter.removeAllFooterView();
-                    mSwipeRefreshLayout.setRefreshing(false);
-                    mCurrentCounter = mAdapter.getData().size();
-                    ParseObject.unpinAllInBackground("notifications", new DeleteCallback() {
-                        public void done(ParseException e1) {
-                            ParseObject.pinAllInBackground("notifications", objects);
-                        }
-                    });
-                }, 500);
-            } else {
-                Timber.e("error %s" ,e.getMessage());
-            }
-        });
-    }
-
-    void initialLoad() {
-        notifQuery = ParseQuery.getQuery("Events");
-        notifQuery.whereEqualTo("to", ParseUser.getCurrentUser());
-        notifQuery.include("from");
-        notifQuery.orderByAscending("updatedAt");
-        notifQuery.fromLocalDatastore();
-        notifQuery.findInBackground((data, e) -> {
-            if (e == null) {
-                new Handler().postDelayed(() -> {
-                    mAdapter.setNewData(data);
-                }, 500);
-            } else {
-                Timber.e("error %s" ,e.getMessage());
-            }
-        });
-    }
 
     private class NotifAdapter
             extends BaseQuickAdapter<ParseObject> {
@@ -237,13 +212,4 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         }
     }
 
-
-
-    @Override
-    public void onStop() {
-        if (notifQuery != null){
-            notifQuery.cancel();
-        }
-        super.onStop();
-    }
 }

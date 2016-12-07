@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="4dp"
+    android:orientation="vertical">
+
+
+    <com.android.liuzhuang.rcimageview.RoundCornerImageView
+        android:id="@+id/channel_item_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/venu_flat_color"
+        app:rciv_radius="@dimen/card_corner_radius_4dp"
+        />
+
+
+    <TextView
+        android:gravity="bottom"
+        android:id="@+id/name1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/dp_10"
+        android:text="Sample Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+</FrameLayout>
