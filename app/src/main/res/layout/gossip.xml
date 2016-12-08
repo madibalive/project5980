@@ -42,7 +42,6 @@
 
 
     <LinearLayout
-        android:layout_below="@id/main_gossip_elapsed_time"
         android:gravity="right|center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"

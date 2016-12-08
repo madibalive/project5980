@@ -1,0 +1,53 @@
+{
+  "project_info": {
+    "project_number": "172066804539",
+    "firebase_url": "https://venudev-dac0b.firebaseio.com",
+    "project_id": "venudev-dac0b",
+    "storage_bucket": "venudev-dac0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172066804539:android:8ea97fa3e96e1ed4",
+        "android_client_info": {
+          "package_name": "com.example.madiba.venu_alpha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172066804539-8ruc388qk3qgnsiu4k9ec90epirtksa7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.madiba.venu_alpha",
+            "certificate_hash": "C90C0FC433A1513E8E7903FD66812940FE5DA8E2"
+          }
+        },
+        {
+          "client_id": "172066804539-4m97ombmg4uvgi3m8nvlk9a9a9a1o764.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [  {
+        "current_key": "AIzaSyD7af7n7WJ2DP9MdhThFBGg1DRJNLxQW2k"
+      }],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172066804539-4m97ombmg4uvgi3m8nvlk9a9a9a1o764.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

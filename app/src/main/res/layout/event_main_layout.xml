@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
+<ScrollView
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-
-
+        android:layout_height="wrap_content">
 
 
 
@@ -99,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.android.liuzhuang.rcimageview.CircleImageView
+            <ImageView
                 android:layout_alignParentLeft="true"
                 android:id="@+id/f_avatar"
                 android:layout_width="30dp"
@@ -132,7 +130,9 @@
         </RelativeLayout>
 
         <include
-            layout="@layout/event_infor_layout_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/event_infor_layout_2"/>
 
 
         <FrameLayout

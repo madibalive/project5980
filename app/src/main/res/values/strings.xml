@@ -98,6 +98,7 @@
     <string name="progress_connecting">Connecting to server</string>
     <string name="title_activity_contact">ContactActivity</string>
     <string name="title_activity_search">Search</string>
+    <string name="title_activity_map_events">Map</string>
 
 
 </resources>

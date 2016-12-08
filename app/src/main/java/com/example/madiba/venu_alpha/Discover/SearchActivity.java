@@ -11,10 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.example.madiba.venu_alpha.R;
 import com.example.madiba.venu_alpha.adapter.search.SearchAdapter;
 import com.example.madiba.venu_alpha.models.SearchModel;
 import com.example.madiba.venu_alpha.obervables.SearchLoader;
+import com.github.rongi.async.Callback;
+import com.github.rongi.async.Tasks;
 
 import java.util.ArrayList;
 import java.util.List;

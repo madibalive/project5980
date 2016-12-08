@@ -26,7 +26,6 @@ public class UserPageFragment extends Fragment {
 
     public static UserPageFragment newInstance(String param1, String param2) {
         UserPageFragment fragment = new UserPageFragment();
-
         return fragment;
     }
 

@@ -2,7 +2,6 @@
     android:padding="@dimen/padding_normal"
     android:drawableLeft="@drawable/ic_qoute"
     android:textStyle="italic"
-    android:layout_toRightOf="@id/f_avatar"
     android:id="@+id/main_gossip_title"
     android:paddingBottom="@dimen/dp_4"
     android:layout_width="match_parent"

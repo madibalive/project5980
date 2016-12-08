@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.madiba.venu_alpha"
         minSdkVersion 16
@@ -28,7 +28,18 @@ android {
         addConstant("GOOGLE_MAPS", "xxxxx")
         addConstant("ADOBE_KEY", "xxxxx")
 
+        packagingOptions {
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/NOTICE.txt'
+            exclude 'META-INF/NOTICE'
+            exclude 'META-INF/DEPENDENCIES'
+            pickFirst 'AndroidManifest.xml'
+        }
+
+        /* 4) Enable jumbo mode */
         dexOptions {
+            jumboMode true
         }
 
     }
@@ -48,7 +59,7 @@ android {
 }
 
 ext {
-    supportLibraryVersion = '25.0.0'
+    supportLibraryVersion = '24.0.0'
     multidexVersion = '1.0.1'
     playServicesVersion = '9.4.0'
     baseAdapterVersion = 'v1.9.8'
@@ -73,7 +84,7 @@ dependencies {
 
     compile 'com.parse:parse-android:1.+'
     compile 'com.parse.bolts:bolts-android:1.+'
-    compile 'com.google.android.gms:play-services:9.8.0'
+    compile 'com.google.android.gms:play-services:10.0.1'
     compile 'com.parse:parsefacebookutils-v4-android:1.10.3@aar'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.jakewharton.timber:timber:4.3.1'
@@ -95,6 +106,7 @@ dependencies {
     compile 'me.tatarka.rxloader:rxloader:1.1.0'
     compile 'com.liuzhuang.opensource:rcimageview:0.0.2'
     compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
 }
 

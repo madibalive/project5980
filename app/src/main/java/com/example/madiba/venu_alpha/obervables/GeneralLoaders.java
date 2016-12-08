@@ -202,4 +202,28 @@ public class GeneralLoaders {
             }
         }).subscribeOn(Schedulers.io());
     }
+
+    public static Observable<List<ParseObject>> loadComment(String id){
+        return Observable.create(new Observable.OnSubscribe<List<ParseObject>>() {
+            @Override
+            public void call(Subscriber<? super List<ParseObject>> subscriber) {
+
+                // Init query
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Peep");
+                query = ParseQuery.getQuery("OnTapRequest");
+                query.whereEqualTo("from", ParseUser.getCurrentUser());
+                query.orderByAscending("createdAt");
+                Timber.d("connecting");
+                try {
+                    subscriber.onNext(query.find());
+                    // save to local store
+                    subscriber.onCompleted();
+
+
+                }catch (Exception e){
+                    subscriber.onError(e);
+                }
+            }
+        }).subscribeOn(Schedulers.io());
+    }
 }
